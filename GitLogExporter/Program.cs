@@ -28,9 +28,13 @@ namespace GitLogExporter {
 
             var sb = new StringBuilder();
 
-            sb.AppendLine($"Git log from {start.ToShortDateString()} to {end.ToShortDateString()}\n");
 
             using (var repo = new Repository(path)) {
+                var projectName = repo.Config.Get<string>("core.ProjectName").Value;
+
+                sb.AppendLine(
+                    $"Git log for {projectName} from {start.ToShortDateString()} to {end.ToShortDateString()}\n");
+
                 var commits = (from c in repo.Commits
                                where c.Committer.When.DateTime >= start && c.Committer.When.DateTime <= end
                                select c);
@@ -45,6 +49,10 @@ namespace GitLogExporter {
             }
 
             //Console.ReadKey();
+        }
+
+        private static string BuildProjectName() {
+            return string.Empty;
         }
     }
 }
