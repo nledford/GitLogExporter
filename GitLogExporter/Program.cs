@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,25 +38,30 @@ namespace GitLogExporter {
             using (_repo = new Repository(path)) {
                 var projectName = _repo.Config.Get<string>("core.ProjectName").Value;
 
-                Sb.AppendLine(
-                    $"Git log for {projectName} from {start.ToShortDateString()} to {end.ToShortDateString()}\n");
-                Sb.AppendLine();
-
                 var commits = (from c in _repo.Commits
                                where c.Committer.When.DateTime >= start && c.Committer.When.DateTime <= end
                                orderby c.Committer.When.DateTime descending
                                select c);
 
+                Sb.AppendLine($"Git log for {projectName} from {start.ToShortDateString()} to {end.ToShortDateString()}");
+                Sb.AppendLine($"Total Commits: {commits.Count()}");
+                Sb.AppendLine($"Average Commits Per Day: {CalculateAverageCommitsPerDay(commits, start, end)}");
+                Sb.AppendLine();
+
                 BuildCommitDivider(commits);
 
                 var previousDate = commits.First().Committer.When.DateTime;
-                Sb.AppendLine($"{previousDate.ToString("D")}\n");
+                Sb.AppendLine($"{previousDate.ToString("D")}");
+                Sb.AppendLine(
+                    $"Total commits: {commits.Count(c => c.Committer.When.DateTime.Date == commits.First().Committer.When.DateTime.Date)}");
                 Sb.AppendLine();
 
                 foreach (var commit in commits) {
                     if (commit.Committer.When.DateTime.Date != previousDate.Date) {
                         Sb.AppendLine();
-                        Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}\n");
+                        Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
+                        Sb.AppendLine(
+                            $"Total commits: {commits.Count(c => c.Committer.When.DateTime.Date == commit.Committer.When.DateTime.Date)}");
                         Sb.AppendLine();
                     }
 
@@ -100,6 +106,21 @@ namespace GitLogExporter {
             for (var i = 0; i < length; i++) {
                 _divider += "-";
             }
+        }
+
+        private static string CalculateAverageCommitsPerDay(IEnumerable<Commit> commits,
+                                                            DateTime start,
+                                                            DateTime end) {
+            var result =
+                Math.Round(
+                    DateTimeExtensions.EachDay(start, end)
+                                      .Select(day => commits.Count(c => c.Committer.When.DateTime.Date == day.Date))
+                                      .Where(count => count > 0)
+                                      .ToArray()
+                                      .Average(),
+                    2).ToString(CultureInfo.CurrentCulture);
+
+            return result;
         }
     }
 }
