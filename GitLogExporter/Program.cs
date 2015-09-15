@@ -16,7 +16,7 @@ namespace GitLogExporter {
             }
 
             var path = args.First();
-            Console.WriteLine($"Opening repositiory: {path}...");
+            Console.WriteLine($"Opening repositiory: \"{path}\"...");
 
             var today = DateTime.Today;
             var monday = DateTime.Now.DayOfWeek == DayOfWeek.Monday
