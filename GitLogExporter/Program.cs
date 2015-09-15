@@ -114,8 +114,8 @@ namespace GitLogExporter {
             var result =
                 Math.Round(
                     DateTimeExtensions.EachDay(start, end)
+                                      .TakeWhile(day => day.Date <= DateTime.Now.Date)
                                       .Select(day => commits.Count(c => c.Committer.When.DateTime.Date == day.Date))
-                                      .Where(count => count > 0)
                                       .ToArray()
                                       .Average(),
                     2).ToString(CultureInfo.CurrentCulture);
