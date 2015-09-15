@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,10 +40,22 @@ namespace GitLogExporter {
                                where c.Committer.When.DateTime >= start && c.Committer.When.DateTime <= end
                                select c);
 
+                var last = commits.Last();
+
+                var divider = BuildCommitDivider(commits);
+
                 foreach (var commit in commits) {
-                    sb.AppendLine(
-                        $"{commit.Committer.When.DateTime.ToString("D")} - {commit.Committer.When.DateTime.ToString("h:mm:ss tt")}");
-                    sb.AppendLine($"{commit.Message}");
+                    var dateAndTime =
+                        $"{commit.Committer.When.DateTime.ToString("D")} - {commit.Committer.When.DateTime.ToString("h:mm:ss tt")}";
+                    var message = $"{commit.Message.Trim()}";
+
+                    sb.AppendLine(dateAndTime);
+                    sb.AppendLine(message);
+
+                    if (!commit.Equals(last)) {
+                        sb.AppendLine(divider);
+                        
+                    }
                 }
 
                 Console.WriteLine(sb.ToString());
@@ -51,8 +64,17 @@ namespace GitLogExporter {
             //Console.ReadKey();
         }
 
-        private static string BuildProjectName() {
-            return string.Empty;
+        private static string BuildCommitDivider(IEnumerable<Commit> commits) {
+            var dividerLength = (from c in commits
+                                 orderby c.Message.Length descending
+                                 select c.Message.Length).First();
+
+            var divider = "";
+            for (var i = 0; i < dividerLength; i++) {
+                divider += "-";
+            }
+
+            return divider;
         }
     }
 }
