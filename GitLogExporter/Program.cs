@@ -8,6 +8,8 @@ using LibGit2Sharp;
 
 namespace GitLogExporter {
     public class Program {
+        private static readonly StringBuilder Sb = new StringBuilder();
+
         private static void Main(string[] args) {
             Console.WriteLine("Git Log Exporter v1.0.0");
 
@@ -27,13 +29,10 @@ namespace GitLogExporter {
                           ? DateTime.Now
                           : DateTime.Today.Next(DayOfWeek.Saturday);
 
-            var sb = new StringBuilder();
-
-
             using (var repo = new Repository(path)) {
                 var projectName = repo.Config.Get<string>("core.ProjectName").Value;
 
-                sb.AppendLine(
+                Sb.AppendLine(
                     $"Git log for {projectName} from {start.ToShortDateString()} to {end.ToShortDateString()}\n");
 
                 var commits = (from c in repo.Commits
@@ -50,20 +49,20 @@ namespace GitLogExporter {
                         $"{commit.Committer.When.DateTime.ToString("D")} - {commit.Committer.When.DateTime.ToString("h:mm:ss tt")}";
                     var message = $"{commit.Message.Trim()}";
 
-                    sb.AppendLine(dateAndTime);
-                    sb.AppendLine(message);
+                    Sb.AppendLine(dateAndTime);
+                    Sb.AppendLine(message);
 
                     if (!commit.Equals(last)) {
-                        sb.AppendLine(divider);
+                        Sb.AppendLine(divider);
                     }
                 }
 
-                Console.WriteLine(sb.ToString());
+                Console.WriteLine(Sb.ToString());
             }
 
             //Console.ReadKey();
         }
-
+        
         private static string BuildCommitDivider(IEnumerable<Commit> commits) {
             var dividerLength = (from c in commits
                                  orderby c.Message.Length descending
