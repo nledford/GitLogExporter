@@ -66,11 +66,13 @@ namespace GitLogExporter {
 
                 Console.WriteLine(Sb.ToString());
 
-                Console.Write("Export git log to text file? (y/n)");
+                Console.Write("Export git log to text file? (y/n) ");
                 var writeToFile = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(writeToFile) && writeToFile.ToUpperInvariant() == "Y") {
                     File.WriteAllText(@path + $"\\Commit Log for {projectName}.txt", Sb.ToString());
+
+                    Console.WriteLine("File saved successfully!");
                 }
             }
         }
