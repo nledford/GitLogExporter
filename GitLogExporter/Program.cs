@@ -38,6 +38,7 @@ namespace GitLogExporter {
 
                 var commits = (from c in repo.Commits
                                where c.Committer.When.DateTime >= start && c.Committer.When.DateTime <= end
+                               orderby c.Committer.When.DateTime descending
                                select c);
 
                 var last = commits.Last();
@@ -54,7 +55,6 @@ namespace GitLogExporter {
 
                     if (!commit.Equals(last)) {
                         sb.AppendLine(divider);
-                        
                     }
                 }
 
@@ -69,8 +69,10 @@ namespace GitLogExporter {
                                  orderby c.Message.Length descending
                                  select c.Message.Length).First();
 
+            var length = dividerLength > 80 ? 80 : dividerLength;
+
             var divider = "";
-            for (var i = 0; i < dividerLength; i++) {
+            for (var i = 0; i < length; i++) {
                 divider += "-";
             }
 
