@@ -9,6 +9,7 @@ using LibGit2Sharp;
 namespace GitLogExporter {
     public class Program {
         private static readonly StringBuilder Sb = new StringBuilder();
+        private static Commit _last;
 
         private static void Main(string[] args) {
             Console.WriteLine("Git Log Exporter v1.0.0");
@@ -40,7 +41,7 @@ namespace GitLogExporter {
                                orderby c.Committer.When.DateTime descending
                                select c);
 
-                var last = commits.Last();
+                _last = commits.Last();
 
                 var divider = BuildCommitDivider(commits);
 
@@ -52,7 +53,7 @@ namespace GitLogExporter {
                     Sb.AppendLine(dateAndTime);
                     Sb.AppendLine(message);
 
-                    if (!commit.Equals(last)) {
+                    if (!commit.Equals(_last)) {
                         Sb.AppendLine(divider);
                     }
                 }
@@ -63,6 +64,20 @@ namespace GitLogExporter {
             //Console.ReadKey();
         }
         
+        private static void BuildCommitBlock(StringBuilder sb,
+                                             Commit commit) {
+            var dateAndTime =
+                        $"{commit.Committer.When.DateTime.ToString("D")} - {commit.Committer.When.DateTime.ToString("h:mm:ss tt")}";
+            var message = $"{commit.Message.Trim()}";
+
+            sb.AppendLine(dateAndTime);
+            sb.AppendLine(message);
+
+            if (!commit.Equals(_last)) {
+                sb.AppendLine(divider);
+            }
+        }
+
         private static string BuildCommitDivider(IEnumerable<Commit> commits) {
             var dividerLength = (from c in commits
                                  orderby c.Message.Length descending
