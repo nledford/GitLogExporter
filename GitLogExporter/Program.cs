@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace GitLogExporter {
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine("Git Log Exporter v1.0.0");
+
+            Console.ReadKey();
         }
     }
 }
