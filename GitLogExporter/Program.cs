@@ -39,6 +39,7 @@ namespace GitLogExporter {
 
                 Sb.AppendLine(
                     $"Git log for {projectName} from {start.ToShortDateString()} to {end.ToShortDateString()}\n");
+                Sb.AppendLine();
 
                 var commits = (from c in _repo.Commits
                                where c.Committer.When.DateTime >= start && c.Committer.When.DateTime <= end
@@ -49,9 +50,13 @@ namespace GitLogExporter {
 
                 var previousDate = commits.First().Committer.When.DateTime;
                 Sb.AppendLine($"{previousDate.ToString("D")}\n");
+                Sb.AppendLine();
+
                 foreach (var commit in commits) {
                     if (commit.Committer.When.DateTime.Date != previousDate.Date) {
+                        Sb.AppendLine();
                         Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}\n");
+                        Sb.AppendLine();
                     }
 
                     BuildCommitBlock(Sb, commit);
@@ -60,7 +65,14 @@ namespace GitLogExporter {
                 }
 
                 Console.WriteLine(Sb.ToString());
-            }            
+
+                Console.Write("Export git log to text file? (y/n)");
+                var writeToFile = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(writeToFile) && writeToFile.ToUpperInvariant() == "Y") {
+                    File.WriteAllText(@path + $"\\Commit Log for {projectName}.txt", Sb.ToString());
+                }
+            }
         }
 
         private static void BuildCommitBlock(StringBuilder sb,
@@ -69,7 +81,7 @@ namespace GitLogExporter {
 
             var author = $"{commit.Committer.Name} <{commit.Committer.Email}>";
             var message = $"{commit.Message.Trim()}";
-            
+
             sb.AppendLine($"{dateAndTime} - {author}");
             sb.AppendLine(message);
             sb.AppendLine(_divider);
