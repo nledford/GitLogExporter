@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using GitLogExporterCore.Extensions;
+using GitLogExporterGUI.Extensions;
 
 namespace GitLogExporterGUI {
     public partial class Main : Form {
@@ -50,11 +50,22 @@ namespace GitLogExporterGUI {
             btnExportGitLog.Enabled = Path.Length > 0;
         }
 
-        private void btnExportGitLog_Click(object sender,
+        private async void btnExportGitLog_Click(object sender,
                                            EventArgs e) {
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
+
+            var exporter = new Exporter();
+
+            var log = await exporter.ExportGitLog(Path, _start, _end);
+
+            if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
+                txtPreviewLog.Clear();
+                txtPreviewLog.AppendText(log);
+            }
+
+            //File.WriteAllText(@path + $"\\Commit Log for {projectName}.txt", Sb.ToString());
         }
-        
+
         private void InitializeDates() {
             _start = DateTime.Now.DayOfWeek == DayOfWeek.Monday
                          ? DateTime.Now
