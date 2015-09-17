@@ -75,6 +75,13 @@ namespace GitLogExporterGUI {
                 txtPath.SelectAll();
                 txtPath.Focus();
                 return;
+            } catch (BareRepositoryException) {
+                MessageBox.Show(
+                    "The selected folder contains a .git directory, but no commits were found.  Please make sure commits exist in the git log and try again.",
+                    "Bare Repository Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtPreviewLog.Clear();
             }
 
             if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
