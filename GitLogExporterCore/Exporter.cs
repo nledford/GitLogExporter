@@ -18,7 +18,7 @@ namespace GitLogExporterCore {
         private DateTime _start;
         private DateTime _end;
 
-        public async void ExportGitLog(string path,
+        public async Task<string> ExportGitLog(string path,
                                  DateTime from,
                                  DateTime to) {
             _start = from;
@@ -38,6 +38,8 @@ namespace GitLogExporterCore {
 
                 await Task.Run(() => BuildCommits());
             }
+
+            return Sb.ToString();
         }
 
         /// <summary>
