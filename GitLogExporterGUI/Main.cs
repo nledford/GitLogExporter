@@ -40,12 +40,19 @@ namespace GitLogExporterGUI {
             }
         }
 
-        private void btnExportGitLog_Click(object sender, EventArgs e) {
+        private void btnExportGitLog_Click(object sender,
+                                           EventArgs e) {
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
         }
 
-        private void btnExit_Click(object sender, EventArgs e) {
+        private void btnExit_Click(object sender,
+                                   EventArgs e) {
             Close();
+        }
+
+        private void txtPath_TextChanged(object sender,
+                                         EventArgs e) {
+            btnExportGitLog.Enabled = Path.Length > 0;
         }
 
         private void InitializeDates() {
