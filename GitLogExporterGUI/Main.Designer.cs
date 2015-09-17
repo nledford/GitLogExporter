@@ -32,7 +32,7 @@
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExportGitLog = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.txtPreviewLog = new System.Windows.Forms.TextBox();
             this.pnlDateRanges.SuspendLayout();
@@ -118,14 +118,15 @@
             this.dateTo.Size = new System.Drawing.Size(377, 20);
             this.dateTo.TabIndex = 3;
             // 
-            // button1
+            // btnExportGitLog
             // 
-            this.button1.Location = new System.Drawing.Point(12, 407);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(359, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Export Git Log";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnExportGitLog.Location = new System.Drawing.Point(12, 407);
+            this.btnExportGitLog.Name = "btnExportGitLog";
+            this.btnExportGitLog.Size = new System.Drawing.Size(359, 23);
+            this.btnExportGitLog.TabIndex = 4;
+            this.btnExportGitLog.Text = "Export Git Log";
+            this.btnExportGitLog.UseVisualStyleBackColor = true;
+            this.btnExportGitLog.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnExit
             // 
@@ -153,7 +154,7 @@
             this.ClientSize = new System.Drawing.Size(464, 442);
             this.Controls.Add(this.txtPreviewLog);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnExportGitLog);
             this.Controls.Add(this.pnlDateRanges);
             this.Controls.Add(this.btnFindPath);
             this.Controls.Add(this.txtPath);
@@ -180,7 +181,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExportGitLog;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.TextBox txtPreviewLog;
     }
