@@ -18,11 +18,24 @@ namespace GitLogExporterGUI {
         private DateTime _start;
         private DateTime _end;
 
+        private string Path {
+            get { return txtPath.Text; }
+            set { txtPath.Text = value; }
+        }
+        
         private void Main_Load(object sender, EventArgs e) {
             InitializeDates();
 
             dateFrom.Value = _start;
             dateTo.Value = _end;
+        }
+
+        private void btnFindPath_Click(object sender, EventArgs e) {
+            using (var dialog = new FolderBrowserDialog()) {
+                if (dialog.ShowDialog() == DialogResult.OK) {
+                    Path = dialog.SelectedPath;
+                }
+            }
         }
 
         private void InitializeDates() {

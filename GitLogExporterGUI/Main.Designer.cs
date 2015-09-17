@@ -61,6 +61,7 @@
             this.btnFindPath.TabIndex = 2;
             this.btnFindPath.Text = "Browse...";
             this.btnFindPath.UseVisualStyleBackColor = true;
+            this.btnFindPath.Click += new System.EventHandler(this.btnFindPath_Click);
             // 
             // pnlDateRanges
             // 
