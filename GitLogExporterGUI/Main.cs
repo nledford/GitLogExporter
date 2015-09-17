@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
@@ -7,8 +8,8 @@ using LibGit2Sharp;
 namespace GitLogExporterGUI {
     public partial class Main : Form {
         private DateTime _end;
-
         private DateTime _start;
+        private string Log { get; set; }
 
         public Main() {
             InitializeComponent();
@@ -18,7 +19,7 @@ namespace GitLogExporterGUI {
             get { return txtPath.Text; }
             set { txtPath.Text = value; }
         }
-
+        
         private void Main_Load(object sender,
                                EventArgs e) {
             InitializeDates();
@@ -30,6 +31,7 @@ namespace GitLogExporterGUI {
             txtPreviewLog.ForeColor = Color.Black;
 
             btnExportGitLog.Enabled = false;
+            btnSaveGitLog.Enabled = false;
         }
 
         private void btnFindPath_Click(object sender,
@@ -57,14 +59,13 @@ namespace GitLogExporterGUI {
 
         private void btnExportGitLog_Click(object sender,
                                            EventArgs e) {
+            Log = string.Empty;
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
 
             var exporter = new Exporter();
-
-            string log;
-
+            
             try {
-                log = exporter.ExportGitLog(Path, _start, _end);
+                Log = exporter.ExportGitLog(Path, _start, _end);
             } catch (RepositoryNotFoundException) {
                 MessageBox.Show(
                     "No git log was found in your selected folder.  Please make sure the folder contains a .git directory and try again.",
@@ -85,12 +86,26 @@ namespace GitLogExporterGUI {
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
+            if (!string.IsNullOrWhiteSpace(Log) && Log != "ERROR") {
                 txtPreviewLog.Clear();
-                txtPreviewLog.AppendText(log);
+                txtPreviewLog.AppendText(Log);
+                btnSaveGitLog.Enabled = true;
             }
+        }
+        
+        private void btnSaveGitLog_Click(object sender, EventArgs e) {
+            using (var dialog = new SaveFileDialog()) {
+                dialog.OverwritePrompt = false;
+                dialog.CreatePrompt = false;
+                dialog.InitialDirectory = Path;
+                dialog.FileName +=
+                    $"Changes to {Exporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
+                dialog.Filter = "Text files (*.txt)|*.txt";
 
-            //File.WriteAllText(@path + $"\\Commit Log for {projectName}.txt", Sb.ToString());
+                if (dialog.ShowDialog() == DialogResult.OK) {
+                    File.WriteAllText(dialog.FileName, Log);
+                }
+            }
         }
 
         private void InitializeDates() {

@@ -3,45 +3,44 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 
 namespace GitLogExporterGUI {
     public class Exporter {
-        private static readonly StringBuilder Sb = new StringBuilder();
-        private static string _divider;
-
+        private readonly StringBuilder _sb = new StringBuilder();
+        private string _divider;
         private List<Commit> _commits;
         private DateTime _end;
+        private DateTime _start;
         private Repository _repo;
 
-        private DateTime _start;
-
+        public static string ProjectName { get; private set; }
         public string ExportGitLog(string path,
-                                               DateTime from,
-                                               DateTime to) {
+                                   DateTime from,
+                                   DateTime to) {
             _start = from;
             _end = to;
 
-            Sb.Clear();
+            _sb.Clear();
+            ProjectName = string.Empty;
 
             using (_repo = new Repository(path)) {
-                var projectName = _repo.Config.Get<string>("core.ProjectName").Value;
+                ProjectName = _repo.Config.Get<string>("core.ProjectName").Value;
 
                 _commits =
                     _repo.Commits.Where(c => c.Committer.When.DateTime >= from && c.Committer.When.DateTime <= to)
                          .OrderByDescending(c => c.Committer.When.DateTime)
                          .ToList();
 
-                BuildReportHeader(projectName);
+                BuildReportHeader(ProjectName);
 
                 BuildCommitDivider();
 
                 BuildCommits();
             }
 
-            return Sb.ToString();
+            return _sb.ToString();
         }
 
         /// <summary>
@@ -64,26 +63,26 @@ namespace GitLogExporterGUI {
         /// </summary>
         /// <param name="projectName">The name of the project</param>
         private void BuildReportHeader(string projectName) {
-            Sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
-            Sb.AppendLine($"Total Commits: {_commits.Count()}");
-            Sb.AppendLine($"Average Commits Per Day: {CalculateAverageCommitsPerDay()}");
-            Sb.AppendLine();
+            _sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
+            _sb.AppendLine($"Total Commits: {_commits.Count()}");
+            _sb.AppendLine($"Average Commits Per Day: {CalculateAverageCommitsPerDay()}");
+            _sb.AppendLine();
         }
 
         private void BuildCommits() {
             var previousDate = _commits.First().Committer.When.DateTime;
-            Sb.AppendLine($"{previousDate.ToString("D")}");
-            Sb.AppendLine(
+            _sb.AppendLine($"{previousDate.ToString("D")}");
+            _sb.AppendLine(
                 $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == _commits.First().Committer.When.DateTime.Date)}");
-            Sb.AppendLine();
+            _sb.AppendLine();
 
             foreach (var commit in _commits) {
                 if (commit.Committer.When.DateTime.Date != previousDate.Date) {
-                    Sb.AppendLine();
-                    Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
-                    Sb.AppendLine(
+                    _sb.AppendLine();
+                    _sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
+                    _sb.AppendLine(
                         $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == commit.Committer.When.DateTime.Date)}");
-                    Sb.AppendLine();
+                    _sb.AppendLine();
                 }
 
                 BuildCommitBlock(commit);
@@ -102,9 +101,9 @@ namespace GitLogExporterGUI {
             var author = $"{commit.Committer.Name} <{commit.Committer.Email}>";
             var message = $"{commit.Message.Trim()}";
 
-            Sb.AppendLine($"{dateAndTime} - {author}");
-            Sb.AppendLine(message);
-            Sb.AppendLine(_divider);
+            _sb.AppendLine($"{dateAndTime} - {author}");
+            _sb.AppendLine(message);
+            _sb.AppendLine(_divider);
         }
 
         private string CalculateAverageCommitsPerDay() {

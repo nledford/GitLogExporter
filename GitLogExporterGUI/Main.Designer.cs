@@ -35,6 +35,7 @@
             this.btnExportGitLog = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.txtPreviewLog = new System.Windows.Forms.RichTextBox();
+            this.btnSaveGitLog = new System.Windows.Forms.Button();
             this.pnlDateRanges.SuspendLayout();
             this.grpDateRanges.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +124,7 @@
             // 
             this.btnExportGitLog.Location = new System.Drawing.Point(12, 407);
             this.btnExportGitLog.Name = "btnExportGitLog";
-            this.btnExportGitLog.Size = new System.Drawing.Size(359, 23);
+            this.btnExportGitLog.Size = new System.Drawing.Size(179, 23);
             this.btnExportGitLog.TabIndex = 4;
             this.btnExportGitLog.Text = "Export Git Log";
             this.btnExportGitLog.UseVisualStyleBackColor = true;
@@ -147,11 +148,22 @@
             this.txtPreviewLog.TabIndex = 6;
             this.txtPreviewLog.Text = "";
             // 
+            // btnSaveGitLog
+            // 
+            this.btnSaveGitLog.Location = new System.Drawing.Point(197, 407);
+            this.btnSaveGitLog.Name = "btnSaveGitLog";
+            this.btnSaveGitLog.Size = new System.Drawing.Size(174, 23);
+            this.btnSaveGitLog.TabIndex = 7;
+            this.btnSaveGitLog.Text = "Save Log";
+            this.btnSaveGitLog.UseVisualStyleBackColor = true;
+            this.btnSaveGitLog.Click += new System.EventHandler(this.btnSaveGitLog_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 442);
+            this.Controls.Add(this.btnSaveGitLog);
             this.Controls.Add(this.txtPreviewLog);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnExportGitLog);
@@ -184,6 +196,7 @@
         private System.Windows.Forms.Button btnExportGitLog;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.RichTextBox txtPreviewLog;
+        private System.Windows.Forms.Button btnSaveGitLog;
     }
 }
 
