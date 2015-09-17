@@ -31,7 +31,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.pnlDateRanges.SuspendLayout();
             this.grpDateRanges.SuspendLayout();
@@ -72,7 +72,7 @@
             // 
             // grpDateRanges
             // 
-            this.grpDateRanges.Controls.Add(this.dateTimePicker1);
+            this.grpDateRanges.Controls.Add(this.dateTo);
             this.grpDateRanges.Controls.Add(this.label3);
             this.grpDateRanges.Controls.Add(this.dateFrom);
             this.grpDateRanges.Controls.Add(this.label2);
@@ -108,12 +108,12 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "To:";
             // 
-            // dateTimePicker1
+            // dateTo
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(47, 47);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(377, 20);
-            this.dateTimePicker1.TabIndex = 3;
+            this.dateTo.Location = new System.Drawing.Point(47, 47);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(377, 20);
+            this.dateTo.TabIndex = 3;
             // 
             // button1
             // 
@@ -136,6 +136,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Main";
             this.Text = "Git Log Exporter";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.pnlDateRanges.ResumeLayout(false);
             this.grpDateRanges.ResumeLayout(false);
             this.grpDateRanges.PerformLayout();
@@ -154,7 +155,7 @@
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.Button button1;
     }
 }
