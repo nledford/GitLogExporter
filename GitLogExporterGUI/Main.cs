@@ -38,6 +38,10 @@ namespace GitLogExporterGUI {
             }
         }
 
+        private void btnExit_Click(object sender, EventArgs e) {
+            Close();
+        }
+
         private void InitializeDates() {
             _start = DateTime.Now.DayOfWeek == DayOfWeek.Monday
                          ? DateTime.Now
