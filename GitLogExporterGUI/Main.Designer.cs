@@ -126,7 +126,7 @@
             this.btnExportGitLog.TabIndex = 4;
             this.btnExportGitLog.Text = "Export Git Log";
             this.btnExportGitLog.UseVisualStyleBackColor = true;
-            this.btnExportGitLog.Click += new System.EventHandler(this.button1_Click);
+            this.btnExportGitLog.Click += new System.EventHandler(this.btnExportGitLog_Click);
             // 
             // btnExit
             // 

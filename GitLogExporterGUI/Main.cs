@@ -38,7 +38,7 @@ namespace GitLogExporterGUI {
             }
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void btnExportGitLog_Click(object sender, EventArgs e) {
 
         }
 
