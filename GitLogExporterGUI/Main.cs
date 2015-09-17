@@ -27,6 +27,8 @@ namespace GitLogExporterGUI {
 
             txtPreviewLog.BackColor = Color.White;
             txtPreviewLog.ForeColor = Color.Black;
+
+            btnExportGitLog.Enabled = false;
         }
 
         private void btnFindPath_Click(object sender,
@@ -39,7 +41,7 @@ namespace GitLogExporterGUI {
         }
 
         private void btnExportGitLog_Click(object sender, EventArgs e) {
-            
+            txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
         }
 
         private void btnExit_Click(object sender, EventArgs e) {
