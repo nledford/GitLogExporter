@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using GitLogExporterGUI.Extensions;
+using LibGit2Sharp;
 
 namespace GitLogExporterGUI {
     public partial class Main : Form {
@@ -54,13 +55,27 @@ namespace GitLogExporterGUI {
             btnExportGitLog.Enabled = Path.Length > 0;
         }
 
-        private async void btnExportGitLog_Click(object sender,
+        private void btnExportGitLog_Click(object sender,
                                            EventArgs e) {
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
 
             var exporter = new Exporter();
 
-            var log = exporter.ExportGitLog(Path, _start, _end);
+            string log;
+
+            try {
+                log = exporter.ExportGitLog(Path, _start, _end);
+            } catch (RepositoryNotFoundException) {
+                MessageBox.Show(
+                    "No git log was found in your selected folder.  Please make sure the folder contains a .git directory and try again.",
+                    "Repository Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtPreviewLog.Clear();
+                txtPath.SelectAll();
+                txtPath.Focus();
+                return;
+            }
 
             if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
                 txtPreviewLog.Clear();
