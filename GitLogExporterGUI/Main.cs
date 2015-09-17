@@ -40,11 +40,6 @@ namespace GitLogExporterGUI {
             }
         }
 
-        private void btnExportGitLog_Click(object sender,
-                                           EventArgs e) {
-            txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
-        }
-
         private void btnExit_Click(object sender,
                                    EventArgs e) {
             Close();
@@ -55,6 +50,11 @@ namespace GitLogExporterGUI {
             btnExportGitLog.Enabled = Path.Length > 0;
         }
 
+        private void btnExportGitLog_Click(object sender,
+                                           EventArgs e) {
+            txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
+        }
+        
         private void InitializeDates() {
             _start = DateTime.Now.DayOfWeek == DayOfWeek.Monday
                          ? DateTime.Now
