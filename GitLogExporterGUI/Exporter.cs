@@ -18,11 +18,13 @@ namespace GitLogExporterGUI {
 
         private DateTime _start;
 
-        public async Task<string> ExportGitLog(string path,
+        public string ExportGitLog(string path,
                                                DateTime from,
                                                DateTime to) {
             _start = from;
             _end = to;
+
+            Sb.Clear();
 
             using (_repo = new Repository(path)) {
                 var projectName = _repo.Config.Get<string>("core.ProjectName").Value;
@@ -32,11 +34,11 @@ namespace GitLogExporterGUI {
                          .OrderByDescending(c => c.Committer.When.DateTime)
                          .ToList();
 
-                await Task.Run(() => BuildReportHeader(projectName));
+                BuildReportHeader(projectName);
 
-                await Task.Run(() => BuildCommitDivider());
+                BuildCommitDivider();
 
-                await Task.Run(() => BuildCommits());
+                BuildCommits();
             }
 
             return Sb.ToString();
@@ -68,7 +70,7 @@ namespace GitLogExporterGUI {
             Sb.AppendLine();
         }
 
-        private async void BuildCommits() {
+        private void BuildCommits() {
             var previousDate = _commits.First().Committer.When.DateTime;
             Sb.AppendLine($"{previousDate.ToString("D")}");
             Sb.AppendLine(
@@ -84,7 +86,7 @@ namespace GitLogExporterGUI {
                     Sb.AppendLine();
                 }
 
-                await Task.Run(() => BuildCommitBlock(commit));
+                BuildCommitBlock(commit);
 
                 previousDate = commit.Committer.When.DateTime;
             }

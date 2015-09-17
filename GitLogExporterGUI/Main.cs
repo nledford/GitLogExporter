@@ -34,6 +34,10 @@ namespace GitLogExporterGUI {
         private void btnFindPath_Click(object sender,
                                        EventArgs e) {
             using (var dialog = new FolderBrowserDialog()) {
+                dialog.ShowNewFolderButton = false;
+                dialog.Description = "Select the folder of the repository containing the git log you want to export";
+                dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Projects";
+
                 if (dialog.ShowDialog() == DialogResult.OK) {
                     Path = dialog.SelectedPath;
                 }
@@ -56,7 +60,7 @@ namespace GitLogExporterGUI {
 
             var exporter = new Exporter();
 
-            var log = await exporter.ExportGitLog(Path, _start, _end);
+            var log = exporter.ExportGitLog(Path, _start, _end);
 
             if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
                 txtPreviewLog.Clear();
