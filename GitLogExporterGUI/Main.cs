@@ -82,6 +82,7 @@ namespace GitLogExporterGUI {
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 txtPreviewLog.Clear();
+                return;
             }
 
             if (!string.IsNullOrWhiteSpace(log) && log != "ERROR") {
