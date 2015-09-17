@@ -1,4 +1,4 @@
-﻿namespace GitLogExporter.Extensions {
+﻿namespace GitLogExporterCore.Extensions {
     public static class StringExtensions {
         public static string UppercaseFirst(this string s) {
             if (string.IsNullOrWhiteSpace(s)) {

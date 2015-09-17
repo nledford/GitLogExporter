@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GitLogExporter.Extensions {
+namespace GitLogExporterCore.Extensions {
     public static class DateTimeExtensions {
         public static DateTime Next(this DateTime from,
                                     DayOfWeek dayOfWeek) {
