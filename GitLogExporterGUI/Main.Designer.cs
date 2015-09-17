@@ -28,13 +28,13 @@
             this.btnFindPath = new System.Windows.Forms.Button();
             this.pnlDateRanges = new System.Windows.Forms.Panel();
             this.grpDateRanges = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateFrom = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dateFrom = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnExportGitLog = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.txtPreviewLog = new System.Windows.Forms.TextBox();
+            this.txtPreviewLog = new System.Windows.Forms.RichTextBox();
             this.pnlDateRanges.SuspendLayout();
             this.grpDateRanges.SuspendLayout();
             this.SuspendLayout();
@@ -86,21 +86,12 @@
             this.grpDateRanges.TabStop = false;
             this.grpDateRanges.Text = "Date Range";
             // 
-            // label2
+            // dateTo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "From:";
-            // 
-            // dateFrom
-            // 
-            this.dateFrom.Location = new System.Drawing.Point(47, 20);
-            this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(377, 20);
-            this.dateFrom.TabIndex = 1;
+            this.dateTo.Location = new System.Drawing.Point(47, 47);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(377, 20);
+            this.dateTo.TabIndex = 3;
             // 
             // label3
             // 
@@ -111,12 +102,21 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "To:";
             // 
-            // dateTo
+            // dateFrom
             // 
-            this.dateTo.Location = new System.Drawing.Point(47, 47);
-            this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(377, 20);
-            this.dateTo.TabIndex = 3;
+            this.dateFrom.Location = new System.Drawing.Point(47, 20);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(377, 20);
+            this.dateFrom.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "From:";
             // 
             // btnExportGitLog
             // 
@@ -140,12 +140,11 @@
             // 
             // txtPreviewLog
             // 
-            this.txtPreviewLog.Enabled = false;
-            this.txtPreviewLog.Location = new System.Drawing.Point(16, 129);
-            this.txtPreviewLog.Multiline = true;
+            this.txtPreviewLog.Location = new System.Drawing.Point(19, 129);
             this.txtPreviewLog.Name = "txtPreviewLog";
-            this.txtPreviewLog.Size = new System.Drawing.Size(436, 272);
+            this.txtPreviewLog.Size = new System.Drawing.Size(433, 272);
             this.txtPreviewLog.TabIndex = 6;
+            this.txtPreviewLog.Text = "";
             // 
             // Main
             // 
@@ -183,7 +182,7 @@
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.Button btnExportGitLog;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.TextBox txtPreviewLog;
+        private System.Windows.Forms.RichTextBox txtPreviewLog;
     }
 }
 
