@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLogExporterCLI", "GitLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLogExporterGUI", "GitLogExporterGUI\GitLogExporterGUI.csproj", "{EF4306D6-966A-4E03-BCCC-53ED60EB0AF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLogExporterCore", "GitLogExporterCore\GitLogExporterCore.csproj", "{AB0B2B82-E96D-442F-8534-FA78C753AFBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EF4306D6-966A-4E03-BCCC-53ED60EB0AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF4306D6-966A-4E03-BCCC-53ED60EB0AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF4306D6-966A-4E03-BCCC-53ED60EB0AF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB0B2B82-E96D-442F-8534-FA78C753AFBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB0B2B82-E96D-442F-8534-FA78C753AFBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB0B2B82-E96D-442F-8534-FA78C753AFBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB0B2B82-E96D-442F-8534-FA78C753AFBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
