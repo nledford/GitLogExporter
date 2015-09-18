@@ -52,6 +52,7 @@ namespace GitLogExporterGUI.Exporters {
                         var ws = package.Workbook.Worksheets.Add(day.ToString("dddd"));
 
                         // Headers
+                        ws.Cells [1, 1, 1, 2].Merge = true;
                         ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
                         ws.Cells [2, 1].Value = "Commits:";
                         ws.Cells [2, 2].Value = currentCommits.Count();
@@ -69,7 +70,7 @@ namespace GitLogExporterGUI.Exporters {
                         ws.Cells[ws.Dimension.Address].AutoFitColumns();
                     }
 
-                    package.Save();
+                    package.SaveAs(report);
                 }
             }
         }
