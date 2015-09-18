@@ -6,16 +6,17 @@ using System.Text;
 using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 
-namespace GitLogExporterGUI {
+namespace GitLogExporterGUI.Exporters {
     public class Exporter {
         private readonly StringBuilder _sb = new StringBuilder();
-        private string _divider;
         private List<Commit> _commits;
+        private string _divider;
         private DateTime _end;
-        private DateTime _start;
         private Repository _repo;
+        private DateTime _start;
 
         public static string ProjectName { get; private set; }
+
         public string ExportGitLog(string path,
                                    DateTime from,
                                    DateTime to) {
