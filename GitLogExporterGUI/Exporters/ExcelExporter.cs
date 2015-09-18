@@ -38,7 +38,7 @@ namespace GitLogExporterGUI.Exporters {
                 report = new FileInfo(Path.Combine(fileName));
                 if (report.Exists) {
                     report.Delete();
-                    report = new FileInfo(Path.Combine(path, ProjectName + ".xlsx"));
+                    report = new FileInfo(fileName);
                 }
 
                 using (var package = new ExcelPackage(report)) {
@@ -54,10 +54,14 @@ namespace GitLogExporterGUI.Exporters {
                         // Headers
                         ws.Cells [1, 1, 1, 2].Merge = true;
                         ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
+
+                        ws.Cells [2, 1, 2, 2].Merge = true;
                         ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
 
+                        ws.Cells [4, 1, 4, 2].Merge = true;
                         ws.Cells [4, 1].Value = $"Total Commits: {_commits.Count}";
 
+                        ws.Cells [5, 1, 5, 2].Merge = true;
                         ws.Cells [5, 1].Value = $"Avg Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
 
                         for (var i = 7; i < currentCommits.Count() + 7; i++) {
