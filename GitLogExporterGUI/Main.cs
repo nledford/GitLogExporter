@@ -94,17 +94,22 @@ namespace GitLogExporterGUI {
         }
         
         private void btnSaveGitLog_Click(object sender, EventArgs e) {
-            using (var dialog = new SaveFileDialog()) {
-                dialog.OverwritePrompt = false;
-                dialog.CreatePrompt = false;
-                dialog.InitialDirectory = Path;
-                dialog.FileName +=
-                    $"Changes to {Exporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
-                dialog.Filter = "Text files (*.txt)|*.txt";
+            if (fmtTxt.Checked) {
+                using (var dialog = new SaveFileDialog()) {
+                    dialog.OverwritePrompt = false;
+                    dialog.CreatePrompt = false;
+                    dialog.InitialDirectory = Path;
+                    dialog.FileName +=
+                        $"Changes to {Exporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
+                    dialog.Filter = "Text files (*.txt)|*.txt";
 
-                if (dialog.ShowDialog() == DialogResult.OK) {
-                    File.WriteAllText(dialog.FileName, Log);
+                    if (dialog.ShowDialog() == DialogResult.OK) {
+                        File.WriteAllText(dialog.FileName, Log);
+                    }
                 }
+            }
+            else {
+                MessageBox.Show("Not implemented yet");
             }
         }
 
