@@ -77,7 +77,7 @@ namespace GitLogExporterGUI.Exporters {
         }
 
         private void BuildCommit(ExcelWorksheet ws, int currentRow, Commit commit) {
-            ws.Cells [currentRow, 1].Value = commit.Committer.When.DateTime.ToShortTimeString();
+            ws.Cells [currentRow, 1].Value = commit.Committer.When.DateTime.ToString("h:mm:ss tt");
             ws.Cells [currentRow, 2].Value = commit.Message;
         }
     }
