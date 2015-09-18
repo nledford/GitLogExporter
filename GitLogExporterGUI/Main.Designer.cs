@@ -70,9 +70,9 @@
             // pnlDateRanges
             // 
             this.pnlDateRanges.Controls.Add(this.grpDateRanges);
-            this.pnlDateRanges.Location = new System.Drawing.Point(16, 36);
+            this.pnlDateRanges.Location = new System.Drawing.Point(12, 36);
             this.pnlDateRanges.Name = "pnlDateRanges";
-            this.pnlDateRanges.Size = new System.Drawing.Size(481, 86);
+            this.pnlDateRanges.Size = new System.Drawing.Size(491, 86);
             this.pnlDateRanges.TabIndex = 3;
             // 
             // grpDateRanges
@@ -81,9 +81,9 @@
             this.grpDateRanges.Controls.Add(this.label3);
             this.grpDateRanges.Controls.Add(this.dateFrom);
             this.grpDateRanges.Controls.Add(this.label2);
-            this.grpDateRanges.Location = new System.Drawing.Point(3, 3);
+            this.grpDateRanges.Location = new System.Drawing.Point(7, 3);
             this.grpDateRanges.Name = "grpDateRanges";
-            this.grpDateRanges.Size = new System.Drawing.Size(475, 79);
+            this.grpDateRanges.Size = new System.Drawing.Size(478, 79);
             this.grpDateRanges.TabIndex = 0;
             this.grpDateRanges.TabStop = false;
             this.grpDateRanges.Text = "Date Range";
@@ -143,9 +143,9 @@
             // txtPreviewLog
             // 
             this.txtPreviewLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreviewLog.Location = new System.Drawing.Point(19, 129);
+            this.txtPreviewLog.Location = new System.Drawing.Point(12, 129);
             this.txtPreviewLog.Name = "txtPreviewLog";
-            this.txtPreviewLog.Size = new System.Drawing.Size(478, 317);
+            this.txtPreviewLog.Size = new System.Drawing.Size(485, 317);
             this.txtPreviewLog.TabIndex = 6;
             this.txtPreviewLog.Text = "";
             // 
