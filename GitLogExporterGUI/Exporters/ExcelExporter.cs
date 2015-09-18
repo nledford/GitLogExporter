@@ -54,14 +54,11 @@ namespace GitLogExporterGUI.Exporters {
                         // Headers
                         ws.Cells [1, 1, 1, 2].Merge = true;
                         ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
-                        ws.Cells [2, 1].Value = "Commits:";
-                        ws.Cells [2, 2].Value = currentCommits.Count();
+                        ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
 
-                        ws.Cells [4, 1].Value = "Total Commits:";
-                        ws.Cells [4, 2].Value = _commits.Count;
+                        ws.Cells [4, 1].Value = $"Total Commits: {_commits.Count}";
 
-                        ws.Cells [5, 1].Value = "Average Commits Per Day:";
-                        ws.Cells [5, 2].Value = Commits.CalculateAverageCommitsPerDay(_commits, _start, _end);
+                        ws.Cells [5, 1].Value = $"Avg Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
 
                         for (var i = 7; i < currentCommits.Count() + 7; i++) {
                             BuildCommit(ws, i, currentCommits.ElementAt(i - 7));
