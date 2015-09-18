@@ -142,6 +142,7 @@
             // 
             // txtPreviewLog
             // 
+            this.txtPreviewLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPreviewLog.Location = new System.Drawing.Point(19, 129);
             this.txtPreviewLog.Name = "txtPreviewLog";
             this.txtPreviewLog.Size = new System.Drawing.Size(433, 272);
