@@ -63,7 +63,7 @@ namespace GitLogExporterGUI {
             Log = string.Empty;
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
 
-            var exporter = new Exporter();
+            var exporter = new TxtExporter();
             
             try {
                 Log = exporter.ExportGitLog(Path, _start, _end);
@@ -101,7 +101,7 @@ namespace GitLogExporterGUI {
                     dialog.CreatePrompt = false;
                     dialog.InitialDirectory = Path;
                     dialog.FileName +=
-                        $"Changes to {Exporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
+                        $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
                     dialog.Filter = "Text files (*.txt)|*.txt";
 
                     if (dialog.ShowDialog() == DialogResult.OK) {

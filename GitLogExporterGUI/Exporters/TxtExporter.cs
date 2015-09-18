@@ -7,7 +7,7 @@ using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
-    public class Exporter {
+    public class TxtExporter {
         private readonly StringBuilder _sb = new StringBuilder();
         private List<Commit> _commits;
         private string _divider;
