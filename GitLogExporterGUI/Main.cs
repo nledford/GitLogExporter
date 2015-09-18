@@ -10,17 +10,18 @@ namespace GitLogExporterGUI {
     public partial class Main : Form {
         private DateTime _end;
         private DateTime _start;
-        private string Log { get; set; }
 
         public Main() {
             InitializeComponent();
         }
 
+        private string Log { get; set; }
+
         private string Path {
             get { return txtPath.Text; }
             set { txtPath.Text = value; }
         }
-        
+
         private void Main_Load(object sender,
                                EventArgs e) {
             InitializeDates();
@@ -60,13 +61,12 @@ namespace GitLogExporterGUI {
 
         private void btnExportGitLog_Click(object sender,
                                            EventArgs e) {
-            Log = string.Empty;
+            Log = null;
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
 
-            var exporter = new TxtExporter();
-            
             try {
-                Log = exporter.ExportGitLog(Path, _start, _end);
+                var txtExporter = new TxtExporter();
+                Log = txtExporter.ExportGitLog(Path, _start, _end);
             } catch (RepositoryNotFoundException) {
                 MessageBox.Show(
                     "No git log was found in your selected folder.  Please make sure the folder contains a .git directory and try again.",
@@ -87,19 +87,19 @@ namespace GitLogExporterGUI {
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(Log) && Log != "ERROR") {
+            if (Log != null) {
                 txtPreviewLog.Clear();
                 txtPreviewLog.AppendText(Log);
                 btnSaveGitLog.Enabled = true;
             }
         }
-        
-        private void btnSaveGitLog_Click(object sender, EventArgs e) {
+
+        private void btnSaveGitLog_Click(object sender,
+                                         EventArgs e) {
+            var dialog = new SaveFileDialog {OverwritePrompt = false, CreatePrompt = false, InitialDirectory = Path};
+
             if (fmtTxt.Checked) {
-                using (var dialog = new SaveFileDialog()) {
-                    dialog.OverwritePrompt = false;
-                    dialog.CreatePrompt = false;
-                    dialog.InitialDirectory = Path;
+                using (dialog) {
                     dialog.FileName +=
                         $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
                     dialog.Filter = "Text files (*.txt)|*.txt";
@@ -110,7 +110,16 @@ namespace GitLogExporterGUI {
                 }
             }
             else {
-                MessageBox.Show("Not implemented yet");
+                using (dialog) {
+                    dialog.FileName +=
+                        $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.xlsx";
+                    dialog.Filter = "Microsoft Excel files (*.xlsx)|*.xlsx";
+
+                    if (dialog.ShowDialog() == DialogResult.OK) {
+                        var excelExporter = new ExcelExporter();
+                        excelExporter.ExportGitLog(Path, dialog.FileName, _start, _end);
+                    }
+                }
             }
         }
 

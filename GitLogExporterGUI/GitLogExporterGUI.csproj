@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exporters\Commits.cs" />
+    <Compile Include="Exporters\ExcelExporter.cs" />
     <Compile Include="Exporters\TxtExporter.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

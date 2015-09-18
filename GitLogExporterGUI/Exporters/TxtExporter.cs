@@ -66,7 +66,7 @@ namespace GitLogExporterGUI.Exporters {
         private void BuildReportHeader(string projectName) {
             _sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
             _sb.AppendLine($"Total Commits: {_commits.Count()}");
-            _sb.AppendLine($"Average Commits Per Day: {CalculateAverageCommitsPerDay()}");
+            _sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
             _sb.AppendLine();
         }
 
@@ -105,29 +105,6 @@ namespace GitLogExporterGUI.Exporters {
             _sb.AppendLine($"{dateAndTime} - {author}");
             _sb.AppendLine(message);
             _sb.AppendLine(_divider);
-        }
-
-        private string CalculateAverageCommitsPerDay() {
-            var commitsPerDay = new List<int>();
-            var hasCommits = false;
-
-            foreach (var day in DateTimeExtensions.EachDay(_start, _end)) {
-                if (day.Date > DateTime.Now.Date) {
-                    break;
-                }
-
-                var count = _commits.Count(c => c.Committer.When.DateTime.Date == day.Date);
-
-                if (count <= 0 && !hasCommits) {}
-                if (count > 0) {
-                    hasCommits = true;
-                    commitsPerDay.Add(count);
-                }
-            }
-
-            var result = Math.Round(commitsPerDay.Average(), 2).ToString(CultureInfo.CurrentCulture);
-
-            return result;
         }
     }
 }
