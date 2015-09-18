@@ -137,9 +137,9 @@
             // txtPreviewLog
             // 
             this.txtPreviewLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreviewLog.Location = new System.Drawing.Point(16, 180);
+            this.txtPreviewLog.Location = new System.Drawing.Point(16, 174);
             this.txtPreviewLog.Name = "txtPreviewLog";
-            this.txtPreviewLog.Size = new System.Drawing.Size(481, 266);
+            this.txtPreviewLog.Size = new System.Drawing.Size(481, 272);
             this.txtPreviewLog.TabIndex = 6;
             this.txtPreviewLog.Text = "";
             // 
@@ -159,7 +159,7 @@
             this.grpExportFormat.Controls.Add(this.fmtTxt);
             this.grpExportFormat.Location = new System.Drawing.Point(16, 121);
             this.grpExportFormat.Name = "grpExportFormat";
-            this.grpExportFormat.Size = new System.Drawing.Size(481, 53);
+            this.grpExportFormat.Size = new System.Drawing.Size(481, 47);
             this.grpExportFormat.TabIndex = 0;
             this.grpExportFormat.TabStop = false;
             this.grpExportFormat.Text = "Export File Type";
