@@ -167,6 +167,7 @@
             // fmtTxt
             // 
             this.fmtTxt.AutoSize = true;
+            this.fmtTxt.Checked = true;
             this.fmtTxt.Location = new System.Drawing.Point(7, 20);
             this.fmtTxt.Name = "fmtTxt";
             this.fmtTxt.Size = new System.Drawing.Size(89, 17);
