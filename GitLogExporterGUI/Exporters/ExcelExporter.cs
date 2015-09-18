@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 using OfficeOpenXml;
@@ -13,19 +9,19 @@ using OfficeOpenXml;
 namespace GitLogExporterGUI.Exporters {
     public class ExcelExporter {
         private List<Commit> _commits;
-        private DateTime _start;
         private DateTime _end;
         private Repository _repo;
+        private DateTime _start;
 
         public static string ProjectName { get; private set; }
 
-        public void ExportGitLog(string path, string fileName,
+        public void ExportGitLog(string path,
+                                 string fileName,
                                  DateTime from,
                                  DateTime to) {
             _start = from;
             _end = to;
             ProjectName = string.Empty;
-            FileInfo report;
 
             using (_repo = new Repository(path)) {
                 ProjectName = _repo.Config.Get<string>("core.ProjectName").Value;
@@ -35,7 +31,7 @@ namespace GitLogExporterGUI.Exporters {
                             orderby c.Committer.When.DateTime descending
                             select c).ToList();
 
-                report = new FileInfo(Path.Combine(fileName));
+                var report = new FileInfo(Path.Combine(fileName));
                 if (report.Exists) {
                     report.Delete();
                     report = new FileInfo(fileName);
@@ -62,13 +58,12 @@ namespace GitLogExporterGUI.Exporters {
                         ws.Cells [4, 1].Value = $"Total Commits: {_commits.Count}";
 
                         ws.Cells [5, 1, 5, 2].Merge = true;
-                        ws.Cells [5, 1].Value = $"Avg Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
+                        ws.Cells [5, 1].Value =
+                            $"Avg Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
 
-                        for (var i = 7; i < currentCommits.Count() + 7; i++) {
-                            BuildCommit(ws, i, currentCommits.ElementAt(i - 7));
-                        }
+                        BuildCommits(currentCommits, ws);
 
-                        ws.Cells[ws.Dimension.Address].AutoFitColumns();
+                        ws.Cells [ws.Dimension.Address].AutoFitColumns();
                     }
 
                     package.SaveAs(report);
@@ -76,7 +71,16 @@ namespace GitLogExporterGUI.Exporters {
             }
         }
 
-        private void BuildCommit(ExcelWorksheet ws, int currentRow, Commit commit) {
+        private void BuildCommits(IEnumerable<Commit> currentCommits,
+                                  ExcelWorksheet ws) {
+            for (var i = 7; i < currentCommits.Count() + 7; i++) {
+                BuildCommit(ws, i, currentCommits.ElementAt(i - 7));
+            }
+        }
+
+        private void BuildCommit(ExcelWorksheet ws,
+                                 int currentRow,
+                                 Commit commit) {
             ws.Cells [currentRow, 1].Value = commit.Committer.When.DateTime.ToString("h:mm:ss tt");
             ws.Cells [currentRow, 2].Value = commit.Message;
         }
