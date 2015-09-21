@@ -51,7 +51,9 @@ namespace GitLogExporterGUI.Exporters {
 
                             // Headers
                             ws.Cells [1, 1, 1, 2].Merge = true;
-                            ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
+                            var titleCell = ws.Cells [1, 1];
+                            titleCell.Value = currentCommits.First().Committer.When.DateTime.ToString("D");
+                            titleCell.Style.Font.Bold = true;
 
                             ws.Cells [2, 1, 2, 2].Merge = true;
                             ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
