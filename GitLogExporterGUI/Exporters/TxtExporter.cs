@@ -15,6 +15,13 @@ namespace GitLogExporterGUI.Exporters {
 
         public static string ProjectName { get; private set; }
 
+        /// <summary>
+        /// Exports git log to a string.  Built using a StringBuilder.
+        /// </summary>
+        /// <param name="path">The path to the git repositiory</param>
+        /// <param name="from">The starting date</param>
+        /// <param name="to">The ending date</param>
+        /// <returns>String containing exported git log</returns>
         public string ExportGitLog(string path,
                                    DateTime from,
                                    DateTime to) {
