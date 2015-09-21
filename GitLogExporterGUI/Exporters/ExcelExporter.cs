@@ -64,7 +64,7 @@ namespace GitLogExporterGUI.Exporters {
 
                             ws.View.FreezePanes(3,1);
 
-                            BuildCommits(currentCommits, ws);
+                            BuildCommits(currentCommits, ws, 4);
 
                             ws.Cells [ws.Dimension.Address].AutoFitColumns();
                         }
@@ -88,9 +88,9 @@ namespace GitLogExporterGUI.Exporters {
         }
 
         private void BuildCommits(IEnumerable<Commit> currentCommits,
-                                  ExcelWorksheet ws) {
-            for (var i = 7; i < currentCommits.Count() + 7; i++) {
-                BuildCommit(ws, i, currentCommits.ElementAt(i - 7));
+                                  ExcelWorksheet ws, int startRow) {
+            for (var i = startRow; i < currentCommits.Count() + startRow; i++) {
+                BuildCommit(ws, i, currentCommits.ElementAt(i - startRow));
             }
         }
 
