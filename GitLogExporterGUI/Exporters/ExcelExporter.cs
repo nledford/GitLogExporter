@@ -41,7 +41,8 @@ namespace GitLogExporterGUI.Exporters {
                 using (var package = new ExcelPackage(report)) {
                     if (_commits.Any()) {
                         foreach (var day in DateTimeExtensions.EachDay(_start, _end)) {
-                            var currentCommits = _commits.Where(c => c.Committer.When.DateTime.Date == day.Date);
+                            var currentCommits =
+                                _commits.Where(c => c.Committer.When.DateTime.Date == day.Date).ToList();
 
                             if (!currentCommits.Any()) {
                                 continue;
