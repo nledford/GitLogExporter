@@ -61,6 +61,9 @@ namespace GitLogExporterGUI {
 
         private void btnExportGitLog_Click(object sender,
                                            EventArgs e) {
+            _start = dateFrom.Value;
+            _end = dateTo.Value;
+
             Log = null;
             txtPreviewLog.AppendText($"Generating git log for {Path}, please wait...");
 
