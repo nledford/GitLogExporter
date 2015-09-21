@@ -38,32 +38,46 @@ namespace GitLogExporterGUI.Exporters {
                 }
 
                 using (var package = new ExcelPackage(report)) {
-                    foreach (var day in DateTimeExtensions.EachDay(_start, _end)) {
-                        var currentCommits = _commits.Where(c => c.Committer.When.DateTime.Date == day.Date);
+                    if (_commits.Any()) {
+                        foreach (var day in DateTimeExtensions.EachDay(_start, _end)) {
+                            var currentCommits = _commits.Where(c => c.Committer.When.DateTime.Date == day.Date);
 
-                        if (!currentCommits.Any()) {
-                            continue;
+                            if (!currentCommits.Any()) {
+                                continue;
+                            }
+
+                            var ws = package.Workbook.Worksheets.Add(day.ToString("dddd"));
+
+                            // Headers
+                            ws.Cells [1, 1, 1, 2].Merge = true;
+                            ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
+
+                            ws.Cells [2, 1, 2, 2].Merge = true;
+                            ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
+
+                            ws.Cells [1, 4, 1, 5].Merge = true;
+                            ws.Cells [1, 4].Value = $"Total Commits: {_commits.Count}";
+
+                            ws.Cells [2, 4, 2, 5].Merge = true;
+                            ws.Cells [2, 4].Value =
+                                $"Avg Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
+
+                            BuildCommits(currentCommits, ws);
+
+                            ws.Cells [ws.Dimension.Address].AutoFitColumns();
                         }
+                    }
+                    else {
+                        var ws = package.Workbook.Worksheets.Add("No Commits Found");
 
-                        var ws = package.Workbook.Worksheets.Add(day.ToString("dddd"));
-
-                        // Headers
                         ws.Cells [1, 1, 1, 2].Merge = true;
-                        ws.Cells [1, 1].Value = currentCommits.First().Committer.When.DateTime.ToString("D");
+                        ws.Cells [1, 1].Value = "No Commits Found";
 
-                        ws.Cells [2, 1, 2, 2].Merge = true;
-                        ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
+                        ws.Cells [1, 4, 1, 5].Merge = true;
+                        ws.Cells [1, 4].Value = $"Total Commits: {_commits.Count}";
 
-                        ws.Cells [4, 1, 4, 2].Merge = true;
-                        ws.Cells [4, 1].Value = $"Total Commits: {_commits.Count}";
-
-                        ws.Cells [5, 1, 5, 2].Merge = true;
-                        ws.Cells [5, 1].Value =
-                            $"Avg Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
-
-                        BuildCommits(currentCommits, ws);
-
-                        ws.Cells [ws.Dimension.Address].AutoFitColumns();
+                        ws.Cells [2, 4, 2, 5].Merge = true;
+                        ws.Cells [2, 4].Value = $"Avg Per Day: 0";
                     }
 
                     package.SaveAs(report);
