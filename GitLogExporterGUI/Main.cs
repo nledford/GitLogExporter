@@ -28,7 +28,6 @@ namespace GitLogExporterGUI {
             Text += Version;
 
             InitializeDates();
-
             dateFrom.Value = _start;
             dateTo.Value = _end;
 
