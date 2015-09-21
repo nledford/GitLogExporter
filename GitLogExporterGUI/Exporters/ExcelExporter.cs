@@ -16,6 +16,13 @@ namespace GitLogExporterGUI.Exporters {
 
         public static string ProjectName { get; private set; }
 
+        /// <summary>
+        /// Exports git log to an Excel spreadsheet
+        /// </summary>
+        /// <param name="path">The path to the git repositiory</param>
+        /// <param name="fileName">The desired filename of the generated spreadsheet</param>
+        /// <param name="from">The starting date</param>
+        /// <param name="to">The ending date</param>
         public void ExportGitLog(string path,
                                  string fileName,
                                  DateTime from,
@@ -93,6 +100,12 @@ namespace GitLogExporterGUI.Exporters {
             }
         }
 
+        /// <summary>
+        ///     Builds all commits for a given date
+        /// </summary>
+        /// <param name="currentCommits">A ReadOnlyCollection of commits for a given date</param>
+        /// <param name="ws">The current worksheet</param>
+        /// <param name="startRow">The row from which to start building commit rows (One-based index)</param>
         private static void BuildCommits(IReadOnlyCollection<Commit> currentCommits,
                                          ExcelWorksheet ws,
                                          int startRow) {
@@ -101,6 +114,12 @@ namespace GitLogExporterGUI.Exporters {
             }
         }
 
+        /// <summary>
+        /// Builds a commit row in an Excel spreadsheet
+        /// </summary>
+        /// <param name="ws">The current worksheet</param>
+        /// <param name="currentRow">The current row from the worksheet</param>
+        /// <param name="commit">The current commit</param>
         private static void BuildCommit(ExcelWorksheet ws,
                                         int currentRow,
                                         Commit commit) {
