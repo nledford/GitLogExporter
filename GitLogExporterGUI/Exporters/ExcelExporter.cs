@@ -48,7 +48,7 @@ namespace GitLogExporterGUI.Exporters {
                                 continue;
                             }
 
-                            var ws = package.Workbook.Worksheets.Add(day.ToString("dddd"));
+                            var ws = package.Workbook.Worksheets.Add(day.ToString("dddd, MM-dd"));
 
                             // Headers
                             ws.Cells [1, 1, 1, 2].Merge = true;
