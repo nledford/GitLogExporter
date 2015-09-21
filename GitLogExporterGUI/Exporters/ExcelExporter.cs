@@ -5,6 +5,7 @@ using System.Linq;
 using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace GitLogExporterGUI.Exporters {
     public class ExcelExporter {
@@ -62,11 +63,13 @@ namespace GitLogExporterGUI.Exporters {
                             ws.Cells [2, 5].Value =
                                 $"Avg Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
 
-                            ws.View.FreezePanes(3,1);
+                            ws.View.FreezePanes(3, 1);
 
                             BuildCommits(currentCommits, ws, 4);
 
                             ws.Cells [ws.Dimension.Address].AutoFitColumns();
+
+                            ws.Column(2).Width = 60;
                         }
                     }
                     else {
@@ -88,17 +91,25 @@ namespace GitLogExporterGUI.Exporters {
         }
 
         private void BuildCommits(IEnumerable<Commit> currentCommits,
-                                  ExcelWorksheet ws, int startRow) {
+                                  ExcelWorksheet ws,
+                                  int startRow) {
             for (var i = startRow; i < currentCommits.Count() + startRow; i++) {
                 BuildCommit(ws, i, currentCommits.ElementAt(i - startRow));
             }
         }
 
-        private void BuildCommit(ExcelWorksheet ws,
-                                 int currentRow,
-                                 Commit commit) {
+        private static void BuildCommit(ExcelWorksheet ws,
+                                        int currentRow,
+                                        Commit commit) {
             ws.Cells [currentRow, 1].Value = commit.Committer.When.DateTime.ToString("h:mm:ss tt");
-            ws.Cells [currentRow, 2].Value = commit.Message;
+            ws.Cells [currentRow, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+            var commitCell = ws.Cells [currentRow, 2];
+            commitCell.Value = commit.Message;
+            commitCell.Style.WrapText = true;
+            commitCell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Justify;
+
+            ws.Row(currentRow).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
         }
     }
 }
