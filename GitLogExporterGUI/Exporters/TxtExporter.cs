@@ -9,9 +9,9 @@ namespace GitLogExporterGUI.Exporters {
         private static List<Commit> _commits;
         private static string _divider;
         private static readonly StringBuilder Sb = new StringBuilder();
-        private DateTime _end;
-        private Repository _repo;
-        private DateTime _start;
+        private static DateTime _end;
+        private static Repository _repo;
+        private static DateTime _start;
 
         public static string ProjectName { get; private set; }
 
@@ -72,7 +72,7 @@ namespace GitLogExporterGUI.Exporters {
         ///     Builds the initial lines of the report, containing the project name, the date range, and commit stats
         /// </summary>
         /// <param name="projectName">The name of the project</param>
-        private void BuildReportHeader(string projectName) {
+        private static void BuildReportHeader(string projectName) {
             Sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
             Sb.AppendLine($"Total Commits: {_commits.Count}");
             Sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
