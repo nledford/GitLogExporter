@@ -55,12 +55,14 @@ namespace GitLogExporterGUI.Exporters {
                             ws.Cells [2, 1, 2, 2].Merge = true;
                             ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
 
-                            ws.Cells [1, 4, 1, 5].Merge = true;
-                            ws.Cells [1, 4].Value = $"Total Commits: {_commits.Count}";
+                            ws.Cells [2, 3, 2, 4].Merge = true;
+                            ws.Cells [2, 3].Value = $"Total Commits: {_commits.Count}";
 
-                            ws.Cells [2, 4, 2, 5].Merge = true;
-                            ws.Cells [2, 4].Value =
+                            ws.Cells [2, 5, 2, 6].Merge = true;
+                            ws.Cells [2, 5].Value =
                                 $"Avg Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}";
+
+                            ws.View.FreezePanes(3,1);
 
                             BuildCommits(currentCommits, ws);
 
