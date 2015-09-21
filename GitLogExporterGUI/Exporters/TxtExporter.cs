@@ -56,7 +56,7 @@ namespace GitLogExporterGUI.Exporters {
         /// <summary>
         ///     Builds a string of hypens used to divide individual commits
         /// </summary>
-        private void BuildCommitDivider() {
+        private static void BuildCommitDivider() {
             var dividerLength = (from c in _commits
                                  orderby c.Message.Length descending
                                  select c.Message.Length).First();
@@ -79,7 +79,7 @@ namespace GitLogExporterGUI.Exporters {
             Sb.AppendLine();
         }
 
-        private void BuildCommits() {
+        private static void BuildCommits() {
             var previousDate = _commits.First().Committer.When.DateTime;
             Sb.AppendLine($"{previousDate.ToString("D")}");
             Sb.AppendLine(
@@ -105,7 +105,7 @@ namespace GitLogExporterGUI.Exporters {
         ///     Builds an individual commit block
         /// </summary>
         /// <param name="commit">An individual commit</param>
-        private void BuildCommitBlock(Commit commit) {
+        private static void BuildCommitBlock(Commit commit) {
             var dateAndTime = $"{commit.Committer.When.DateTime.ToString("h:mm:ss tt")}";
 
             var author = $"{commit.Committer.Name} <{commit.Committer.Email}>";
