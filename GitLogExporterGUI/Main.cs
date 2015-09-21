@@ -25,7 +25,7 @@ namespace GitLogExporterGUI {
 
         private void Main_Load(object sender,
                                EventArgs e) {
-            Text += Version;
+            Text += $" - {Version}";
 
             InitializeDates();
             dateFrom.Value = _start;
