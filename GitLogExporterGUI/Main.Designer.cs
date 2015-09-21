@@ -36,8 +36,8 @@
             this.txtPreviewLog = new System.Windows.Forms.RichTextBox();
             this.btnSaveGitLog = new System.Windows.Forms.Button();
             this.grpExportFormat = new System.Windows.Forms.GroupBox();
-            this.fmtTxt = new System.Windows.Forms.RadioButton();
             this.fmtExcel = new System.Windows.Forms.RadioButton();
+            this.fmtTxt = new System.Windows.Forms.RadioButton();
             this.grpDateRanges.SuspendLayout();
             this.grpExportFormat.SuspendLayout();
             this.SuspendLayout();
@@ -164,28 +164,27 @@
             this.grpExportFormat.TabStop = false;
             this.grpExportFormat.Text = "Export File Type";
             // 
-            // fmtTxt
-            // 
-            this.fmtTxt.AutoSize = true;
-            this.fmtTxt.Checked = true;
-            this.fmtTxt.Location = new System.Drawing.Point(7, 20);
-            this.fmtTxt.Name = "fmtTxt";
-            this.fmtTxt.Size = new System.Drawing.Size(89, 17);
-            this.fmtTxt.TabIndex = 0;
-            this.fmtTxt.TabStop = true;
-            this.fmtTxt.Text = "Text file (*.txt)";
-            this.fmtTxt.UseVisualStyleBackColor = true;
-            // 
             // fmtExcel
             // 
             this.fmtExcel.AutoSize = true;
-            this.fmtExcel.Location = new System.Drawing.Point(103, 20);
+            this.fmtExcel.Checked = true;
+            this.fmtExcel.Location = new System.Drawing.Point(6, 19);
             this.fmtExcel.Name = "fmtExcel";
             this.fmtExcel.Size = new System.Drawing.Size(134, 17);
             this.fmtExcel.TabIndex = 1;
             this.fmtExcel.TabStop = true;
             this.fmtExcel.Text = "Excel document (*.xlsx)";
             this.fmtExcel.UseVisualStyleBackColor = true;
+            // 
+            // fmtTxt
+            // 
+            this.fmtTxt.AutoSize = true;
+            this.fmtTxt.Location = new System.Drawing.Point(146, 19);
+            this.fmtTxt.Name = "fmtTxt";
+            this.fmtTxt.Size = new System.Drawing.Size(89, 17);
+            this.fmtTxt.TabIndex = 0;
+            this.fmtTxt.Text = "Text file (*.txt)";
+            this.fmtTxt.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
