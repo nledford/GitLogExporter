@@ -27,9 +27,7 @@ namespace GitLogExporterGUI.Exporters {
                 }
             }
 
-            var result = Math.Round(commitsPerDay.Average(), 2).ToString(CultureInfo.CurrentCulture);
-
-            return result;
+            return commitsPerDay.Any() ? Math.Round(commitsPerDay.Average(), 2).ToString(CultureInfo.CurrentCulture) : "0";
         }
     }
 }
