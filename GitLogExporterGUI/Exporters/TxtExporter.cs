@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
@@ -29,8 +28,7 @@ namespace GitLogExporterGUI.Exporters {
                 ProjectName = _repo.Config.Get<string>("core.ProjectName").Value;
 
                 _commits =
-                    _repo.Commits.Where(
-                        c => c.Committer.When.DateTime >= _start && c.Committer.When.DateTime <= _end)
+                    _repo.Commits.Where(c => c.Committer.When.DateTime >= _start && c.Committer.When.DateTime <= _end)
                          .OrderByDescending(c => c.Committer.When.DateTime)
                          .ToList();
 
@@ -68,7 +66,7 @@ namespace GitLogExporterGUI.Exporters {
         /// <param name="projectName">The name of the project</param>
         private void BuildReportHeader(string projectName) {
             _sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
-            _sb.AppendLine($"Total Commits: {_commits.Count()}");
+            _sb.AppendLine($"Total Commits: {_commits.Count}");
             _sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
             _sb.AppendLine();
         }

@@ -96,7 +96,7 @@ namespace GitLogExporterGUI.Exporters {
         private static void BuildCommits(IReadOnlyCollection<Commit> currentCommits,
                                          ExcelWorksheet ws,
                                          int startRow) {
-            for (var i = startRow; i < currentCommits.Count() + startRow; i++) {
+            for (var i = startRow; i < currentCommits.Count + startRow; i++) {
                 BuildCommit(ws, i, currentCommits.ElementAt(i - startRow));
             }
         }
