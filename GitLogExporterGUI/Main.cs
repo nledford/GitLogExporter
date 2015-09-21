@@ -11,6 +11,8 @@ namespace GitLogExporterGUI {
         private DateTime _end;
         private DateTime _start;
 
+        private const string Version = "v1.0.0";
+
         public Main() {
             InitializeComponent();
         }
@@ -24,6 +26,8 @@ namespace GitLogExporterGUI {
 
         private void Main_Load(object sender,
                                EventArgs e) {
+            Text += Version;
+
             InitializeDates();
 
             dateFrom.Value = _start;
