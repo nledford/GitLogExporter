@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using GitLogExporterGUI.Extensions;
 using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
@@ -36,8 +34,11 @@ namespace GitLogExporterGUI.Exporters {
 
                 BuildReportHeader(ProjectName);
 
-                BuildCommitDivider();
+                if (!_commits.Any()) {
+                    return _sb.ToString();
+                }
 
+                BuildCommitDivider();
                 BuildCommits();
             }
 
