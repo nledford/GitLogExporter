@@ -57,7 +57,7 @@ namespace GitLogExporterGUI.Exporters {
                             titleCell.Style.Font.Bold = true;
 
                             ws.Cells [2, 1, 2, 2].Merge = true;
-                            ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count()}";
+                            ws.Cells [2, 1].Value = $"Commits: {currentCommits.Count}";
 
                             ws.Cells [2, 3, 2, 4].Merge = true;
                             ws.Cells [2, 3].Value = $"Total Commits: {_commits.Count}";
@@ -93,7 +93,7 @@ namespace GitLogExporterGUI.Exporters {
             }
         }
 
-        private void BuildCommits(IEnumerable<Commit> currentCommits,
+        private void BuildCommits(IReadOnlyCollection<Commit> currentCommits,
                                   ExcelWorksheet ws,
                                   int startRow) {
             for (var i = startRow; i < currentCommits.Count() + startRow; i++) {
