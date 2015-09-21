@@ -6,7 +6,7 @@ using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
     public class TxtExporter {
-        private static List<Commit> _commits;
+        private static List<Commit> _commits = new List<Commit>();
         private static string _divider;
         private static readonly StringBuilder Sb = new StringBuilder();
         private static DateTime _end;
