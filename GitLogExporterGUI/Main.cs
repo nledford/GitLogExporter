@@ -101,7 +101,7 @@ namespace GitLogExporterGUI {
 
         private void btnSaveGitLog_Click(object sender,
                                          EventArgs e) {
-            var dialog = new SaveFileDialog {OverwritePrompt = false, CreatePrompt = false, InitialDirectory = Path};
+            var dialog = new SaveFileDialog {CreatePrompt = false, InitialDirectory = Path};
 
             if (fmtTxt.Checked) {
                 using (dialog) {
