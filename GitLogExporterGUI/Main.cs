@@ -125,10 +125,10 @@ namespace GitLogExporterGUI {
 
         private void InitializeDates() {
             _start = DateTime.Now.DayOfWeek == DayOfWeek.Monday
-                         ? DateTime.Now
+                         ? DateTime.Now.Date
                          : DateTime.Today.Previous(DayOfWeek.Monday);
 
-            _end = DateTime.Now.DayOfWeek == DayOfWeek.Saturday ? DateTime.Now : DateTime.Today.Next(DayOfWeek.Saturday);
+            _end = DateTime.Now.DayOfWeek == DayOfWeek.Saturday ? DateTime.Now.Date : DateTime.Today.Next(DayOfWeek.Saturday);
         }
     }
 }
