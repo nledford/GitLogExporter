@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
@@ -28,7 +29,8 @@ namespace GitLogExporterGUI.Exporters {
                 ProjectName = _repo.Config.Get<string>("core.ProjectName").Value;
 
                 _commits =
-                    _repo.Commits.Where(c => c.Committer.When.DateTime >= from && c.Committer.When.DateTime <= to)
+                    _repo.Commits.Where(
+                        c => c.Committer.When.DateTime >= _start && c.Committer.When.DateTime <= _end)
                          .OrderByDescending(c => c.Committer.When.DateTime)
                          .ToList();
 
