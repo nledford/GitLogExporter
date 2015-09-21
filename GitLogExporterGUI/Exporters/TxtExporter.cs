@@ -6,9 +6,9 @@ using LibGit2Sharp;
 
 namespace GitLogExporterGUI.Exporters {
     public class TxtExporter {
-        private readonly StringBuilder _sb = new StringBuilder();
-        private List<Commit> _commits;
-        private string _divider;
+        private static List<Commit> _commits;
+        private static string _divider;
+        private static readonly StringBuilder Sb = new StringBuilder();
         private DateTime _end;
         private Repository _repo;
         private DateTime _start;
@@ -16,7 +16,7 @@ namespace GitLogExporterGUI.Exporters {
         public static string ProjectName { get; private set; }
 
         /// <summary>
-        /// Exports git log to a string.  Built using a StringBuilder.
+        ///     Exports git log to a string.  Built using a StringBuilder.
         /// </summary>
         /// <param name="path">The path to the git repositiory</param>
         /// <param name="from">The starting date</param>
@@ -28,7 +28,8 @@ namespace GitLogExporterGUI.Exporters {
             _start = from;
             _end = to;
 
-            _sb.Clear();
+            Sb.Clear();
+            _commits.Clear();
             ProjectName = string.Empty;
 
             using (_repo = new Repository(path)) {
@@ -42,14 +43,14 @@ namespace GitLogExporterGUI.Exporters {
                 BuildReportHeader(ProjectName);
 
                 if (!_commits.Any()) {
-                    return _sb.ToString();
+                    return Sb.ToString();
                 }
 
                 BuildCommitDivider();
                 BuildCommits();
             }
 
-            return _sb.ToString();
+            return Sb.ToString();
         }
 
         /// <summary>
@@ -72,26 +73,26 @@ namespace GitLogExporterGUI.Exporters {
         /// </summary>
         /// <param name="projectName">The name of the project</param>
         private void BuildReportHeader(string projectName) {
-            _sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
-            _sb.AppendLine($"Total Commits: {_commits.Count}");
-            _sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
-            _sb.AppendLine();
+            Sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
+            Sb.AppendLine($"Total Commits: {_commits.Count}");
+            Sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
+            Sb.AppendLine();
         }
 
         private void BuildCommits() {
             var previousDate = _commits.First().Committer.When.DateTime;
-            _sb.AppendLine($"{previousDate.ToString("D")}");
-            _sb.AppendLine(
+            Sb.AppendLine($"{previousDate.ToString("D")}");
+            Sb.AppendLine(
                 $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == _commits.First().Committer.When.DateTime.Date)}");
-            _sb.AppendLine();
+            Sb.AppendLine();
 
             foreach (var commit in _commits) {
                 if (commit.Committer.When.DateTime.Date != previousDate.Date) {
-                    _sb.AppendLine();
-                    _sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
-                    _sb.AppendLine(
+                    Sb.AppendLine();
+                    Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
+                    Sb.AppendLine(
                         $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == commit.Committer.When.DateTime.Date)}");
-                    _sb.AppendLine();
+                    Sb.AppendLine();
                 }
 
                 BuildCommitBlock(commit);
@@ -110,9 +111,9 @@ namespace GitLogExporterGUI.Exporters {
             var author = $"{commit.Committer.Name} <{commit.Committer.Email}>";
             var message = $"{commit.Message.Trim()}";
 
-            _sb.AppendLine($"{dateAndTime} - {author}");
-            _sb.AppendLine(message);
-            _sb.AppendLine(_divider);
+            Sb.AppendLine($"{dateAndTime} - {author}");
+            Sb.AppendLine(message);
+            Sb.AppendLine(_divider);
         }
     }
 }
