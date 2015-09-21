@@ -8,7 +8,7 @@ using LibGit2Sharp;
 
 namespace GitLogExporterGUI {
     public partial class Main : Form {
-        private const string Version = "v1.0.0";
+        private const string Version = "v1.1.0";
         private DateTime _end;
         private DateTime _start;
 
