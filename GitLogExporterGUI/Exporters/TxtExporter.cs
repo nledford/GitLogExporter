@@ -79,6 +79,9 @@ namespace GitLogExporterGUI.Exporters {
             Sb.AppendLine();
         }
 
+        /// <summary>
+        ///     Adds all relevent info from git log to a StringBuilder
+        /// </summary>
         private static void BuildCommits() {
             var previousDate = _commits.First().Committer.When.DateTime;
             Sb.AppendLine($"{previousDate.ToString("D")}");
