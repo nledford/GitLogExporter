@@ -26,7 +26,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnFindPath = new System.Windows.Forms.Button();
-            this.pnlDateRanges = new System.Windows.Forms.Panel();
             this.grpDateRanges = new System.Windows.Forms.GroupBox();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,8 +35,11 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.txtPreviewLog = new System.Windows.Forms.RichTextBox();
             this.btnSaveGitLog = new System.Windows.Forms.Button();
-            this.pnlDateRanges.SuspendLayout();
+            this.grpExportFormat = new System.Windows.Forms.GroupBox();
+            this.fmtExcel = new System.Windows.Forms.RadioButton();
+            this.fmtTxt = new System.Windows.Forms.RadioButton();
             this.grpDateRanges.SuspendLayout();
+            this.grpExportFormat.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -53,13 +55,13 @@
             // 
             this.txtPath.Location = new System.Drawing.Point(104, 10);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(258, 20);
+            this.txtPath.Size = new System.Drawing.Size(303, 20);
             this.txtPath.TabIndex = 1;
             this.txtPath.TextChanged += new System.EventHandler(this.txtPath_TextChanged);
             // 
             // btnFindPath
             // 
-            this.btnFindPath.Location = new System.Drawing.Point(368, 8);
+            this.btnFindPath.Location = new System.Drawing.Point(413, 8);
             this.btnFindPath.Name = "btnFindPath";
             this.btnFindPath.Size = new System.Drawing.Size(84, 23);
             this.btnFindPath.TabIndex = 2;
@@ -67,23 +69,15 @@
             this.btnFindPath.UseVisualStyleBackColor = true;
             this.btnFindPath.Click += new System.EventHandler(this.btnFindPath_Click);
             // 
-            // pnlDateRanges
-            // 
-            this.pnlDateRanges.Controls.Add(this.grpDateRanges);
-            this.pnlDateRanges.Location = new System.Drawing.Point(16, 36);
-            this.pnlDateRanges.Name = "pnlDateRanges";
-            this.pnlDateRanges.Size = new System.Drawing.Size(436, 86);
-            this.pnlDateRanges.TabIndex = 3;
-            // 
             // grpDateRanges
             // 
             this.grpDateRanges.Controls.Add(this.dateTo);
             this.grpDateRanges.Controls.Add(this.label3);
             this.grpDateRanges.Controls.Add(this.dateFrom);
             this.grpDateRanges.Controls.Add(this.label2);
-            this.grpDateRanges.Location = new System.Drawing.Point(3, 3);
+            this.grpDateRanges.Location = new System.Drawing.Point(16, 36);
             this.grpDateRanges.Name = "grpDateRanges";
-            this.grpDateRanges.Size = new System.Drawing.Size(430, 79);
+            this.grpDateRanges.Size = new System.Drawing.Size(481, 79);
             this.grpDateRanges.TabIndex = 0;
             this.grpDateRanges.TabStop = false;
             this.grpDateRanges.Text = "Date Range";
@@ -92,7 +86,7 @@
             // 
             this.dateTo.Location = new System.Drawing.Point(47, 47);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(377, 20);
+            this.dateTo.Size = new System.Drawing.Size(422, 20);
             this.dateTo.TabIndex = 3;
             // 
             // label3
@@ -108,7 +102,7 @@
             // 
             this.dateFrom.Location = new System.Drawing.Point(47, 20);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(377, 20);
+            this.dateFrom.Size = new System.Drawing.Size(422, 20);
             this.dateFrom.TabIndex = 1;
             // 
             // label2
@@ -122,9 +116,9 @@
             // 
             // btnExportGitLog
             // 
-            this.btnExportGitLog.Location = new System.Drawing.Point(12, 407);
+            this.btnExportGitLog.Location = new System.Drawing.Point(16, 452);
             this.btnExportGitLog.Name = "btnExportGitLog";
-            this.btnExportGitLog.Size = new System.Drawing.Size(179, 23);
+            this.btnExportGitLog.Size = new System.Drawing.Size(312, 23);
             this.btnExportGitLog.TabIndex = 4;
             this.btnExportGitLog.Text = "Export Git Log";
             this.btnExportGitLog.UseVisualStyleBackColor = true;
@@ -132,7 +126,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(377, 407);
+            this.btnExit.Location = new System.Drawing.Point(422, 452);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 5;
@@ -142,41 +136,77 @@
             // 
             // txtPreviewLog
             // 
-            this.txtPreviewLog.Location = new System.Drawing.Point(19, 129);
+            this.txtPreviewLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPreviewLog.Location = new System.Drawing.Point(16, 174);
             this.txtPreviewLog.Name = "txtPreviewLog";
-            this.txtPreviewLog.Size = new System.Drawing.Size(433, 272);
+            this.txtPreviewLog.Size = new System.Drawing.Size(481, 272);
             this.txtPreviewLog.TabIndex = 6;
             this.txtPreviewLog.Text = "";
             // 
             // btnSaveGitLog
             // 
-            this.btnSaveGitLog.Location = new System.Drawing.Point(197, 407);
+            this.btnSaveGitLog.Location = new System.Drawing.Point(334, 452);
             this.btnSaveGitLog.Name = "btnSaveGitLog";
-            this.btnSaveGitLog.Size = new System.Drawing.Size(174, 23);
+            this.btnSaveGitLog.Size = new System.Drawing.Size(82, 23);
             this.btnSaveGitLog.TabIndex = 7;
             this.btnSaveGitLog.Text = "Save Log";
             this.btnSaveGitLog.UseVisualStyleBackColor = true;
             this.btnSaveGitLog.Click += new System.EventHandler(this.btnSaveGitLog_Click);
             // 
+            // grpExportFormat
+            // 
+            this.grpExportFormat.Controls.Add(this.fmtExcel);
+            this.grpExportFormat.Controls.Add(this.fmtTxt);
+            this.grpExportFormat.Location = new System.Drawing.Point(16, 121);
+            this.grpExportFormat.Name = "grpExportFormat";
+            this.grpExportFormat.Size = new System.Drawing.Size(481, 47);
+            this.grpExportFormat.TabIndex = 0;
+            this.grpExportFormat.TabStop = false;
+            this.grpExportFormat.Text = "Export File Type";
+            // 
+            // fmtExcel
+            // 
+            this.fmtExcel.AutoSize = true;
+            this.fmtExcel.Checked = true;
+            this.fmtExcel.Location = new System.Drawing.Point(6, 19);
+            this.fmtExcel.Name = "fmtExcel";
+            this.fmtExcel.Size = new System.Drawing.Size(134, 17);
+            this.fmtExcel.TabIndex = 1;
+            this.fmtExcel.TabStop = true;
+            this.fmtExcel.Text = "Excel document (*.xlsx)";
+            this.fmtExcel.UseVisualStyleBackColor = true;
+            // 
+            // fmtTxt
+            // 
+            this.fmtTxt.AutoSize = true;
+            this.fmtTxt.Location = new System.Drawing.Point(146, 19);
+            this.fmtTxt.Name = "fmtTxt";
+            this.fmtTxt.Size = new System.Drawing.Size(89, 17);
+            this.fmtTxt.TabIndex = 0;
+            this.fmtTxt.Text = "Text file (*.txt)";
+            this.fmtTxt.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 442);
+            this.ClientSize = new System.Drawing.Size(509, 487);
+            this.Controls.Add(this.grpDateRanges);
+            this.Controls.Add(this.grpExportFormat);
             this.Controls.Add(this.btnSaveGitLog);
             this.Controls.Add(this.txtPreviewLog);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnExportGitLog);
-            this.Controls.Add(this.pnlDateRanges);
             this.Controls.Add(this.btnFindPath);
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.label1);
             this.Name = "Main";
             this.Text = "Git Log Exporter";
             this.Load += new System.EventHandler(this.Main_Load);
-            this.pnlDateRanges.ResumeLayout(false);
             this.grpDateRanges.ResumeLayout(false);
             this.grpDateRanges.PerformLayout();
+            this.grpExportFormat.ResumeLayout(false);
+            this.grpExportFormat.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,7 +217,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Button btnFindPath;
-        private System.Windows.Forms.Panel pnlDateRanges;
         private System.Windows.Forms.GroupBox grpDateRanges;
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label label2;
@@ -197,6 +226,9 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.RichTextBox txtPreviewLog;
         private System.Windows.Forms.Button btnSaveGitLog;
+        private System.Windows.Forms.GroupBox grpExportFormat;
+        private System.Windows.Forms.RadioButton fmtTxt;
+        private System.Windows.Forms.RadioButton fmtExcel;
     }
 }
 
