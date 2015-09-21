@@ -8,10 +8,9 @@ using LibGit2Sharp;
 
 namespace GitLogExporterGUI {
     public partial class Main : Form {
+        private const string Version = "v1.0.0";
         private DateTime _end;
         private DateTime _start;
-
-        private const string Version = "v1.0.0";
 
         public Main() {
             InitializeComponent();
@@ -135,7 +134,9 @@ namespace GitLogExporterGUI {
                          ? DateTime.Now.Date
                          : DateTime.Today.Previous(DayOfWeek.Monday);
 
-            _end = DateTime.Now.DayOfWeek == DayOfWeek.Saturday ? DateTime.Now.Date : DateTime.Today.Next(DayOfWeek.Saturday);
+            _end = DateTime.Now.DayOfWeek == DayOfWeek.Saturday
+                       ? DateTime.Now.Date
+                       : DateTime.Today.Next(DayOfWeek.Saturday);
         }
     }
 }
