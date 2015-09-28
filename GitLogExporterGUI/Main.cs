@@ -44,7 +44,7 @@ namespace GitLogExporterGUI {
                 dialog.ShowNewFolderButton = false;
                 dialog.Description = @"Select the folder of the repository containing the git log you want to export";
                 dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Projects";
-
+                
                 if (dialog.ShowDialog() == DialogResult.OK) Path = dialog.SelectedPath;
             }
         }
@@ -90,11 +90,11 @@ namespace GitLogExporterGUI {
                 return;
             }
 
-            if (Log != null) {
-                txtPreviewLog.Clear();
-                txtPreviewLog.AppendText(Log);
-                btnSaveGitLog.Enabled = true;
-            }
+            if (Log == null) return;
+
+            txtPreviewLog.Clear();
+            txtPreviewLog.AppendText(Log);
+            btnSaveGitLog.Enabled = true;
         }
 
         private void btnSaveGitLog_Click(object sender,
