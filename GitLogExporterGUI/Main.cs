@@ -45,9 +45,7 @@ namespace GitLogExporterGUI {
                 dialog.Description = "Select the folder of the repository containing the git log you want to export";
                 dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Projects";
 
-                if (dialog.ShowDialog() == DialogResult.OK) {
-                    Path = dialog.SelectedPath;
-                }
+                if (dialog.ShowDialog() == DialogResult.OK) Path = dialog.SelectedPath;
             }
         }
 
@@ -109,9 +107,7 @@ namespace GitLogExporterGUI {
                         $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
                     dialog.Filter = "Text files (*.txt)|*.txt";
 
-                    if (dialog.ShowDialog() == DialogResult.OK) {
-                        File.WriteAllText(dialog.FileName, Log);
-                    }
+                    if (dialog.ShowDialog() == DialogResult.OK) File.WriteAllText(dialog.FileName, Log);
                 }
             }
             else {
@@ -133,9 +129,10 @@ namespace GitLogExporterGUI {
                          ? DateTime.Now.Date
                          : DateTime.Today.Previous(DayOfWeek.Monday);
 
-            _end = DateTime.Now.DayOfWeek == DayOfWeek.Saturday
-                       ? DateTime.Now.Date
-                       : DateTime.Today.Next(DayOfWeek.Saturday);
+            _end =
+                (DateTime.Now.DayOfWeek == DayOfWeek.Saturday
+                     ? DateTime.Now.Date
+                     : DateTime.Today.Next(DayOfWeek.Saturday)).AddDays(1).AddTicks(-1);
         }
     }
 }
