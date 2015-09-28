@@ -42,9 +42,9 @@ namespace GitLogExporterGUI {
                                        EventArgs e) {
             using (var dialog = new FolderBrowserDialog()) {
                 dialog.ShowNewFolderButton = false;
-                dialog.Description = "Select the folder of the repository containing the git log you want to export";
-                dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Projects";
-
+                dialog.Description = @"Select the folder of the repository containing the git log you want to export";
+                dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Projects";
+                
                 if (dialog.ShowDialog() == DialogResult.OK) Path = dialog.SelectedPath;
             }
         }
@@ -72,8 +72,8 @@ namespace GitLogExporterGUI {
                 Log = txtExporter.ExportGitLog(Path, _start, _end);
             } catch (RepositoryNotFoundException) {
                 MessageBox.Show(
-                    "No git log was found in your selected folder.  Please make sure the folder contains a .git directory and try again.",
-                    "Repository Error",
+                    @"No git log was found in your selected folder.  Please make sure the folder contains a .git directory and try again.",
+                    @"Repository Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 txtPreviewLog.Clear();
@@ -82,19 +82,19 @@ namespace GitLogExporterGUI {
                 return;
             } catch (BareRepositoryException) {
                 MessageBox.Show(
-                    "The selected folder contains a .git directory, but no commits were found.  Please make sure commits exist in the git log and try again.",
-                    "Bare Repository Error",
+                    @"The selected folder contains a .git directory, but no commits were found.  Please make sure commits exist in the git log and try again.",
+                    @"Bare Repository Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 txtPreviewLog.Clear();
                 return;
             }
 
-            if (Log != null) {
-                txtPreviewLog.Clear();
-                txtPreviewLog.AppendText(Log);
-                btnSaveGitLog.Enabled = true;
-            }
+            if (Log == null) return;
+
+            txtPreviewLog.Clear();
+            txtPreviewLog.AppendText(Log);
+            btnSaveGitLog.Enabled = true;
         }
 
         private void btnSaveGitLog_Click(object sender,
@@ -105,7 +105,7 @@ namespace GitLogExporterGUI {
                 using (dialog) {
                     dialog.FileName +=
                         $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
-                    dialog.Filter = "Text files (*.txt)|*.txt";
+                    dialog.Filter = @"Text files (*.txt)|*.txt";
 
                     if (dialog.ShowDialog() == DialogResult.OK) File.WriteAllText(dialog.FileName, Log);
                 }
@@ -114,11 +114,13 @@ namespace GitLogExporterGUI {
                 using (dialog) {
                     dialog.FileName +=
                         $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.xlsx";
-                    dialog.Filter = "Microsoft Excel files (*.xlsx)|*.xlsx";
+                    dialog.Filter = @"Microsoft Excel files (*.xlsx)|*.xlsx";
 
-                    if (dialog.ShowDialog() == DialogResult.OK) {
-                        var excelExporter = new ExcelExporter();
-                        excelExporter.ExportGitLog(Path, dialog.FileName, _start, _end);
+                    switch (dialog.ShowDialog()) {
+                        case DialogResult.OK:
+                            var excelExporter = new ExcelExporter();
+                            excelExporter.ExportGitLog(Path, dialog.FileName, _start, _end);
+                            break;
                     }
                 }
             }
