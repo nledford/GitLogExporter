@@ -116,9 +116,11 @@ namespace GitLogExporterGUI {
                         $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.xlsx";
                     dialog.Filter = "Microsoft Excel files (*.xlsx)|*.xlsx";
 
-                    if (dialog.ShowDialog() == DialogResult.OK) {
-                        var excelExporter = new ExcelExporter();
-                        excelExporter.ExportGitLog(Path, dialog.FileName, _start, _end);
+                    switch (dialog.ShowDialog()) {
+                        case DialogResult.OK:
+                            var excelExporter = new ExcelExporter();
+                            excelExporter.ExportGitLog(Path, dialog.FileName, _start, _end);
+                            break;
                     }
                 }
             }
