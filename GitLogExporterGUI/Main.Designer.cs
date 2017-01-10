@@ -57,7 +57,7 @@
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(328, 20);
             this.txtPath.TabIndex = 1;
-            this.txtPath.TextChanged += new System.EventHandler(this.txtPath_TextChanged);
+            this.txtPath.TextChanged += new System.EventHandler(this.TxtPath_TextChanged);
             // 
             // btnFindPath
             // 
@@ -67,7 +67,7 @@
             this.btnFindPath.TabIndex = 2;
             this.btnFindPath.Text = "Browse...";
             this.btnFindPath.UseVisualStyleBackColor = true;
-            this.btnFindPath.Click += new System.EventHandler(this.btnFindPath_Click);
+            this.btnFindPath.Click += new System.EventHandler(this.BtnFindPath_Click);
             // 
             // grpDateRanges
             // 
@@ -122,7 +122,7 @@
             this.btnExportGitLog.TabIndex = 4;
             this.btnExportGitLog.Text = "Export Git Log";
             this.btnExportGitLog.UseVisualStyleBackColor = true;
-            this.btnExportGitLog.Click += new System.EventHandler(this.btnExportGitLog_Click);
+            this.btnExportGitLog.Click += new System.EventHandler(this.BtnExportGitLog_Click);
             // 
             // btnExit
             // 
@@ -132,7 +132,7 @@
             this.btnExit.TabIndex = 5;
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // txtPreviewLog
             // 
@@ -151,7 +151,7 @@
             this.btnSaveGitLog.TabIndex = 7;
             this.btnSaveGitLog.Text = "Save Log";
             this.btnSaveGitLog.UseVisualStyleBackColor = true;
-            this.btnSaveGitLog.Click += new System.EventHandler(this.btnSaveGitLog_Click);
+            this.btnSaveGitLog.Click += new System.EventHandler(this.BtnSaveGitLog_Click);
             // 
             // grpExportFormat
             // 

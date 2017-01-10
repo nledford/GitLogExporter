@@ -30,6 +30,7 @@ namespace GitLogExporterGUI
         private void Main_Load(object sender,
             EventArgs e)
         {
+            // ReSharper disable once LocalizableElement
             Text += $" - {Version}";
 
             InitializeDates();
@@ -43,7 +44,7 @@ namespace GitLogExporterGUI
             btnSaveGitLog.Enabled = false;
         }
 
-        private void btnFindPath_Click(object sender,
+        private void BtnFindPath_Click(object sender,
             EventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
@@ -56,19 +57,19 @@ namespace GitLogExporterGUI
             }
         }
 
-        private void btnExit_Click(object sender,
+        private void BtnExit_Click(object sender,
             EventArgs e)
         {
             Close();
         }
 
-        private void txtPath_TextChanged(object sender,
+        private void TxtPath_TextChanged(object sender,
             EventArgs e)
         {
             btnExportGitLog.Enabled = Path.Length > 0;
         }
 
-        private void btnExportGitLog_Click(object sender,
+        private void BtnExportGitLog_Click(object sender,
             EventArgs e)
         {
             _start = dateFrom.Value;
@@ -112,7 +113,7 @@ namespace GitLogExporterGUI
             btnSaveGitLog.Enabled = true;
         }
 
-        private void btnSaveGitLog_Click(object sender,
+        private void BtnSaveGitLog_Click(object sender,
             EventArgs e)
         {
             var dialog = new SaveFileDialog {CreatePrompt = false, InitialDirectory = Path};
