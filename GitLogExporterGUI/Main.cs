@@ -122,7 +122,7 @@ namespace GitLogExporterGUI
                 using (dialog)
                 {
                     dialog.FileName +=
-                        $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.txt";
+                        $"Changes to {TxtExporter.ProjectName} from {_start:yyyy-MM-dd} to {_end:yyyy-MM-dd}.txt";
                     dialog.Filter = @"Text files (*.txt)|*.txt";
 
                     if (dialog.ShowDialog() == DialogResult.OK) File.WriteAllText(dialog.FileName, Log);
@@ -131,7 +131,7 @@ namespace GitLogExporterGUI
                 using (dialog)
                 {
                     dialog.FileName +=
-                        $"Changes to {TxtExporter.ProjectName} from {_start.ToString("yyyy-MM-dd")} to {_end.ToString("yyyy-MM-dd")}.xlsx";
+                        $"Changes to {TxtExporter.ProjectName} from {_start:yyyy-MM-dd} to {_end:yyyy-MM-dd}.xlsx";
                     dialog.Filter = @"Microsoft Excel files (*.xlsx)|*.xlsx";
 
                     switch (dialog.ShowDialog())
