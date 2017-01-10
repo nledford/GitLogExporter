@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using LibGit2Sharp;
 
-namespace GitLogExporterGUI.Exporters {
-    public class TxtExporter {
-        private static List<Commit> _commits = new List<Commit>();
+namespace GitLogExporterGUI.Exporters
+{
+    public class TxtExporter
+    {
+        private static IList<Commit> _commits = new List<Commit>();
         private static string _divider;
         private static readonly StringBuilder Sb = new StringBuilder();
         private static DateTime _end;
@@ -23,8 +25,9 @@ namespace GitLogExporterGUI.Exporters {
         /// <param name="to">The ending date</param>
         /// <returns>String containing exported git log</returns>
         public string ExportGitLog(string path,
-                                   DateTime from,
-                                   DateTime to) {
+            DateTime from,
+            DateTime to)
+        {
             _start = from;
             _end = to;
 
@@ -32,19 +35,18 @@ namespace GitLogExporterGUI.Exporters {
             _commits.Clear();
             ProjectName = string.Empty;
 
-            using (_repo = new Repository(path)) {
+            using (_repo = new Repository(path))
+            {
                 ProjectName = _repo.Config.Get<string>("core.ProjectName").Value;
 
                 _commits =
                     _repo.Commits.Where(c => c.Committer.When.DateTime >= _start && c.Committer.When.DateTime <= _end)
-                         .OrderByDescending(c => c.Committer.When.DateTime)
-                         .ToList();
+                        .OrderByDescending(c => c.Committer.When.DateTime)
+                        .ToList();
 
                 BuildReportHeader(ProjectName);
 
-                if (!_commits.Any()) {
-                    return Sb.ToString();
-                }
+                if (!_commits.Any()) return Sb.ToString();
 
                 BuildCommitDivider();
                 BuildCommits();
@@ -56,23 +58,23 @@ namespace GitLogExporterGUI.Exporters {
         /// <summary>
         ///     Builds a string of hypens used to divide individual commits
         /// </summary>
-        private static void BuildCommitDivider() {
+        private static void BuildCommitDivider()
+        {
             var dividerLength = (from c in _commits
-                                 orderby c.Message.Length descending
-                                 select c.Message.Length).First();
+                orderby c.Message.Length descending
+                select c.Message.Length).First();
             var length = dividerLength > 80 ? 80 : dividerLength;
 
             _divider = "";
-            for (var i = 0; i < length; i++) {
-                _divider += "-";
-            }
+            for (var i = 0; i < length; i++) _divider += "-";
         }
 
         /// <summary>
         ///     Builds the initial lines of the report, containing the project name, the date range, and commit stats
         /// </summary>
         /// <param name="projectName">The name of the project</param>
-        private static void BuildReportHeader(string projectName) {
+        private static void BuildReportHeader(string projectName)
+        {
             Sb.AppendLine($"Git log for {projectName} from {_start.ToShortDateString()} to {_end.ToShortDateString()}");
             Sb.AppendLine($"Total Commits: {_commits.Count}");
             Sb.AppendLine($"Average Commits Per Day: {Commits.CalculateAverageCommitsPerDay(_commits, _start, _end)}");
@@ -82,17 +84,20 @@ namespace GitLogExporterGUI.Exporters {
         /// <summary>
         ///     Adds all relevent info from git log to a StringBuilder
         /// </summary>
-        private static void BuildCommits() {
+        private static void BuildCommits()
+        {
             var previousDate = _commits.First().Committer.When.DateTime;
-            Sb.AppendLine($"{previousDate.ToString("D")}");
+            Sb.AppendLine($"{previousDate:D}");
             Sb.AppendLine(
                 $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == _commits.First().Committer.When.DateTime.Date)}");
             Sb.AppendLine();
 
-            foreach (var commit in _commits) {
-                if (commit.Committer.When.DateTime.Date != previousDate.Date) {
+            foreach (var commit in _commits)
+            {
+                if (commit.Committer.When.DateTime.Date != previousDate.Date)
+                {
                     Sb.AppendLine();
-                    Sb.AppendLine($"\n{commit.Committer.When.DateTime.ToString("D")}");
+                    Sb.AppendLine($"\n{commit.Committer.When.DateTime:D}");
                     Sb.AppendLine(
                         $"Total commits: {_commits.Count(c => c.Committer.When.DateTime.Date == commit.Committer.When.DateTime.Date)}");
                     Sb.AppendLine();
@@ -108,8 +113,9 @@ namespace GitLogExporterGUI.Exporters {
         ///     Builds an individual commit block
         /// </summary>
         /// <param name="commit">An individual commit</param>
-        private static void BuildCommitBlock(Commit commit) {
-            var dateAndTime = $"{commit.Committer.When.DateTime.ToString("h:mm:ss tt")}";
+        private static void BuildCommitBlock(Commit commit)
+        {
+            var dateAndTime = $"{commit.Committer.When.DateTime:h:mm:ss tt}";
 
             var author = $"{commit.Committer.Name} <{commit.Committer.Email}>";
             var message = $"{commit.Message.Trim()}";
